@@ -1,20 +1,19 @@
 export default {
-    title: "Homepage",
-    titleSuffix: " | Pacamara ☕",
+    title: "Inicio",
+    titleSuffix: " | CIOG ☕",
     description: "Aromatic brew, pure indulgence, exquisite satisfaction.Default description",
     defaultOgImage: "./defaultog.jpg",
     latestPosts: 3,
-    postsPerPage: 3,
+    postsPerPage: 6,
     url: "https://pacamara-astro-6y7xr.kinsta.page",
     social: {
         'dribbble': false,
         'facebook': false,
-        'github': 'https://github.com/palmiak',
-        'instagram': false,
+        'github': false,
+        'instagram': 'https://www.instagram.com/ciog_2/',
         'mastodon': false,
         'pinterest': false,
         'skype': false,
-        'twitter': 'https://twitter.com/palmiak_fp'
-
+        'twitter': false
     }
 }

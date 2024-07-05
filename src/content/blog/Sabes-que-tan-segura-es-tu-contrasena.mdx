@@ -1,0 +1,100 @@
+---
+title: ¿Sabes que tan segura es tu contraseña?
+pubDate: 2022-02-22
+intro: Una computadora promedio puede realizar 4 mil millones de cálculos por segundo, con esa potencia de cálculo se podrían probar los 100 millones de combinaciones al instante.
+tag: Ciberseguridad
+author: ciog
+image: ../../assets/contrasena.webp
+---
+import { Image } from 'astro:assets'
+
+<Image src="https://i.ibb.co/VQkzQLn/Seguridad.jpg" width={500} height={200} alt="Candado digital" title="Candado digital" />
+
+## ¿Sabes qué es una contraseña?
+
+Según Google una “Una contraseña o clave es una forma de autentificación que utiliza información secreta para controlar el acceso hacia algún recurso. La contraseña debe mantenerse en secreto ante aquellos a quien no se les permite el acceso.”,
+
+Otra manera de verlo es que son “una combinación de letras número y símbolos limitados, ordenados de una manera específica qué dan acceso a algo ya sea para proteger tus cuentas digitales como Facebook, Google, tu cuenta bancaria, la contraseña de tu teléfono o incluso en sistemas físicos como las cajas fuertes” entre muchos otros.
+
+
+<Image src="https://i.ibb.co/R0Z2SGm/Password.jpg" width={500} height={200} alt="Palabra password escrita con teclas"/>
+
+
+## ¿Quieres saber que tan segura es tu contraseña?
+
+Para que una contraseña se considere segura debe de contener las siguientes características
+
+* letras minúsculas
+* LETRAS MAYÚSCULAS
+* Números
+* Símbolos
+* Minimo 12 caracteres (si es posible)
+
+Cada uno de estos puntos es muy importante, porque le añaden una capa de complejidad mucho más grande y es mucho más importante para sistemas digitales que para los sistemas físicos.
+
+
+
+#### Veamos unos ejemplos:
+Imagina un ataque de fuerza bruta en una caja fuerte (sistema fisico) que tiene una contraseña de solo 8 dígitos numéricos, aunque solo sé está cumpliendo con una de las 5 características que debe de tener una contraseña segura con esos 8 dígitos se pueden hacer 100 millones de combinaciones, la probabilidad de acertar es de 1/100 000 000.
+
+Si el ladrón es muy bueno y puede probar una contraseña cada 10 segundos tardaría 11,574 días en probar todas las combinaciones posibles.
+
+Ahora imagina que hacen un ataque de fuerza bruta a tu red de wifi la cual también tiene como contraseña solo 8 dígitos numéricos y de igual manera se pueden hacer 100 millones de combinaciones. Una computadora promedio puede realizar 4 mil millones de cálculos por segundo, con esa potencia de cálculo se podrían probar los 100 millones de combinaciones al instante.
+
+<Image src="https://i.ibb.co/BgLCJ01/How-Long-Does-It-Take-For-A-Hacker-To-Crack-Your-Password.jpg" width={800} height={200} alt="Tabla con datos sobre el tiempo que puede tardar en decifrarse una contraseña según sus caracteristicas"/>
+
+En este sitio, [How Secure Is My Password?](https://www.security.org/how-secure-is-my-password/) puedes escribir tu contraseña y el programa calcula cuanto tiempo se tardaria en decifrar una contraseña como la tuya.
+
+
+## ¿Entonces eso significa que necesito una contraseña con muchos números, símbolos, letras sin sentido y difícil de recordar?
+
+No necesariamente. Lo que hace más segura a una contraseña es su longitud y mientras más larga sea, más difícil será encontrar su combinación y si añades más de las otras características solo aumentara su complegidad.
+
+#### Para saber la complejidad de tu contraseña tienes que saber que existen:
+* 26 letras minúsculas
+* 26 LETRAS MAYÚSCULAS
+* 10 números
+* 33 símbolos (puede variar)
+
+Tomemos como ejemplo esta contraseña **“W-2ed8qcpi/12acI239_C?”** la cual cuenta con todas las características de una contraseña segura, solo que puede ser difícil de recordar.
+
+#### Entonces para saber la seguridad de esta contraseña necesitamos resolver el siguiente problema:
+
+cada caracteristica que cumpla nuestra contraseña la agregamos a la suma, **aunque solo sea un caracter**.
+
+26 letras minúsculas + 26 letras mayúsculas + 10 números + 33 símbolos = 95 caracteres
+El resultado en este caso (95) lo vamos a elevar por la cantidad de caracteres que tiene nuestra contraseña, en este caso 22 caracteres y con eso nos daría la cantidad de posibles combinaciones.
+95^22 = 3.2353354497370936651 x 10^43
+
+El numero es tan grande que podria mantener a una computadora ocupada unos cuantos trillones de trillones de trillones de años o tal vez más.
+
+#### Pregunta ¿qué contraseña es más segura opción 1 o 2?
+1. **"W-2ed8qcpi/12acI239_C?"**
+2. **"Mi perro se llama Zeus y tiene 2 orejas"**
+
+piensalo un poco...
+
+Respuesta:
+
+* ¿ambas tienen letras mayúsculas?, Si
+* ¿ambas tienen letras minúsculas?, Si
+* ¿ambas tienen números?, Si
+* ¿ambas tienen simbolos?, Si, el espacio es un simbolo
+
+Entonces si ambas tienen todos las caracteristicas el ganador seria quien más caracteres tenga, **la opción A, tiene 22 caracteres** y la **opción B, tiene 39 caracteres** es por eso por lo que la **opción B es la ganadora.**
+
+Notaste que, aunque la **opción B** casi tiene más del doble de caracteres **es mucho más fácil de recordar que la opción A**, es por lo que las contraseñas no necesariamente tienen que ser extremadamente complejas, a una computadora le daria igual ella solo probaria combinación por combinación y en algún momento encontraria la tuya.
+
+* Jamás uses contraseñas como “Contraseña_123”, “contraseña123” o combinaciones similares o simples, las personas que se dedican a vulnerar contraseñas atacan bases de datos, roban los correos y contraseñas y las almacenan y si quieren hacer un ataque de fuerza bruta las primeras contraseñas que van a probar son las que ya se robaron anteriormente.
+* Nunca uses la misma contraseña para diferentes servicios. Como lo comenté en el punto anterior si usas el mismo correo y la misma contraseña, estas personas podrían intentar acceder a otros servicios con los datos que ya tienen.
+* Entra a [haveibeenpwned](https://haveibeenpwned.com/) en ella podrás escribir tu correo y te dirá si es que existe algún servicio que haya sido víctima de un ataque y filtro tus datos.
+* Usa un gestor de contraseñas, como ya te dije no solo uses una contraseña para todo. Usa una para cada servicio y tal vez recordar todas sea difícil es por eso que un gestor de contraseñas te podría servir.
+
+¿Te gusto el post? ¿tienes alguna recomendación? Házmelo saber en mi [Instagram](https://www.instagram.com/ciog_2/).
+
+
+> ### Fuentes y recursos:
+> * [¿Que es una contraseña?.](https://es.wikipedia.org/wiki/Contrase%C3%B1a)
+> * [Prueba de seguridad.](https://www.security.org/how-secure-is-my-password/)
+> * [Potencia de calculo de una computadora.](https://www.welivesecurity.com/la-es/2022/12/23/matematica-claves-numerica-alfanumerica/)
+> * [Revisar que lugares han sido vulnerados y filtraron datos.](https://haveibeenpwned.com/)
