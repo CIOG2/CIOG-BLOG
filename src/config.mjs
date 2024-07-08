@@ -1,6 +1,6 @@
 export default {
     title: "Inicio",
-    titleSuffix: " | CIOG ☕",
+    titleSuffix: " | CIOG",
     description: "Aromatic brew, pure indulgence, exquisite satisfaction.Default description",
     defaultOgImage: "./defaultog.jpg",
     latestPosts: 3,

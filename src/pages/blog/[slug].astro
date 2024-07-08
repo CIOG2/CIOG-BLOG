@@ -9,20 +9,22 @@ import Tag from "../../components/general/Tag.astro";
 
 import { getCollection, getEntry } from "astro:content";
 
+
 export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
 
   return blogEntries.map((entry) => ({
     params: { slug: entry.slug },
-    props: { entry },
+    props: { entry},
   }));
 }
 const { entry } = Astro.props;
 entry.data.type = "blog";
 
+
+
 const { Content } = await entry.render();
 const author = await getEntry(entry.data.author);
-
 ---
 
 <Base postData={entry}>

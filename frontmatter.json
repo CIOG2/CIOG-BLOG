@@ -41,6 +41,11 @@
           "title": "Tag",
           "name": "tag",
           "type": "string"
+        },
+        {
+          "title": "Keywords",
+          "name": "keywords",
+          "type": "string"
         }
       ]
     },

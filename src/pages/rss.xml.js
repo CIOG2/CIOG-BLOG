@@ -12,8 +12,9 @@ export async function get(context) {
             title: post.data.title,
             pubDate: post.data.pubDate,
             description: post.data.intro,
+            keywords: post.data.keywords,
             link: `/blog/${post.slug}/`,
         })),
-        customData: `<language>en-us</language>`,
+        customData: `<language>es-mx</language>`,
     });
 }
