@@ -5,7 +5,7 @@ export default {
     defaultOgImage: "./defaultog.jpg",
     latestPosts: 3,
     postsPerPage: 6,
-    url: "https://pacamara-astro-6y7xr.kinsta.page",
+    url: "https://ciog-blog.vercel.app/",
     social: {
         'dribbble': false,
         'facebook': false,

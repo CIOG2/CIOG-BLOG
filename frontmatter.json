@@ -73,7 +73,7 @@
   "frontMatter.framework.id": "astro",
   "frontMatter.preview.host": "http://localhost:4321",
   "frontMatter.content.publicFolder": {
-    "path": "src/assets",
+    "path": "",
     "relative": true
   },
   "frontMatter.content.pageFolders": [
