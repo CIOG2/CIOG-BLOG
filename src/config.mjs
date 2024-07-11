@@ -1,7 +1,7 @@
 export default {
     title: "Inicio",
     titleSuffix: " | CIOG",
-    description: "Aromatic brew, pure indulgence, exquisite satisfaction.Default description",
+    description: "Recientemente, comencé a escribir para mí, pero algo me hizo querer compartirlo, así que abrí un blog.",
     defaultOgImage: "./defaultog.jpg",
     latestPosts: 3,
     postsPerPage: 6,

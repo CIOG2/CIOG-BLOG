@@ -2,9 +2,32 @@
 import Base from "../layouts/Base.astro";
 import Welcome from "../components/general/Welcome.astro";
 import LatestPosts from "../components/blog/LatestPosts.astro";
+
+
+const data = {
+  id: '',
+  slug: '',
+  body: "",
+  collection: 'blog',
+  data: {
+    title: 'Blog',
+    intro: 'Recientemente, comencé a escribir para mí, pero algo me hizo querer compartirlo, así que abrí un blog.',
+    tag: '',
+		image: {
+		src: '/@fs/Users/ivan.ochoa/Desktop/PROGRAMACION/CIOG/CIOG-BLOG/src/assets/SEO.webp?origWidth=1024&origHeight=1024&origFormat=webp',
+		width: 1024,
+		height: 1024,
+		format: 'webp'
+		},
+	},
+    author: { id: 'ciog', collection: 'author' },
+    pubDate: "2024-07-07T00:00:00.000Z",
+    keywords: '',
+    type: 'blog'
+  }
 ---
 
-<Base>
+<Base postData={data}>
 	<main>
 		<Welcome />
 		<LatestPosts />
