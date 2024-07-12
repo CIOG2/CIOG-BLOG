@@ -5,7 +5,7 @@ export default {
     defaultOgImage: "./defaultog.jpg",
     latestPosts: 3,
     postsPerPage: 6,
-    url: "https://ciog-blog.vercel.app/",
+    url: "https://ciog.dev/",
     social: {
         'dribbble': false,
         'facebook': false,
