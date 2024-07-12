@@ -19,8 +19,10 @@ const pageCollection = defineCollection({
     schema: ({image}) => z.object({
         title: z.string(),
         intro: z.string(),
+        author: reference('author'),
         image: image().optional(),
         type: z.string().optional(),
+        keywords: z.string().optional(),
     }),
 });
 

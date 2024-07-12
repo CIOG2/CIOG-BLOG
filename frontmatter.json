@@ -71,6 +71,11 @@
           "title": "Intro",
           "name": "intro",
           "type": "string"
+        },
+        {
+          "title": "Keywords",
+          "name": "keywords",
+          "type": "string"
         }
       ]
     }
