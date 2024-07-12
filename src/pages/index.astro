@@ -5,30 +5,30 @@ import LatestPosts from "../components/blog/LatestPosts.astro";
 
 
 const data = {
-  id: '',
-  slug: '',
-  body: "",
-  collection: 'blog',
-  data: {
+    id: '',
+    slug: '',
+    body: "",
+    collection: 'blog',
+    data: {
     title: 'Blog',
     intro: 'Recientemente, comencé a escribir para mí, pero algo me hizo querer compartirlo, así que abrí un blog.',
     tag: 'Biografía',
     keywords: 'Carlos Ivan ochoa gomez, CIOG, ciog, blog, culiacan, front-end, woockom, desarrollador web',
     author: { id: 'ciog', collection: 'author' },
 
-		image: {
-      src: 'https://res.cloudinary.com/dx7uimym1/image/upload/v1720816573/CIOG/ciog-preview.png',
-      width: 1280,
-      height: 768,
-      format: 'webp'
-		},
-	},
+        image: {
+        src: 'https://res.cloudinary.com/dx7uimym1/image/upload/v1720816573/CIOG/ciog-preview.png',
+        width: 1280,
+        height: 768,
+        format: 'webp'
+        },
+    },
     pubDate: "2024-07-07T00:00:00.000Z",
     type: 'blog'
-  }
+}
 ---
 
-<Base postData={data}>
+<Base >
 	<main>
 		<Welcome />
 		<LatestPosts />
