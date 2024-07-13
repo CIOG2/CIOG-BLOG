@@ -6,4 +6,8 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   integrations: [tailwind(), mdx()],
   site: "https://ciog.dev/",
+  output: 'server',
+  adapter: vercel({
+    webAnalytics: { enabled: true }
+  }),
 });
