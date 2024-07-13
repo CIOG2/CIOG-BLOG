@@ -1,5 +1,4 @@
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel/serverless';
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 
@@ -7,8 +6,4 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   integrations: [tailwind(), mdx()],
   site: "https://ciog.dev/",
-  output: 'server',
-  adapter: vercel({
-    webAnalytics: { enabled: true }
-  }),
 });
