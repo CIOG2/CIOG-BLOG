@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+sitemap: https://ciog.dev/sitemap.xml
