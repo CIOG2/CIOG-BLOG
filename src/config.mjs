@@ -10,7 +10,7 @@ export default {
         'dribbble': false,
         'facebook': false,
         'github': false,
-        'instagram': 'https://www.instagram.com/ciog_2/',
+        'instagram': 'https://www.instagram.com/ciog.dev/',
         'mastodon': false,
         'pinterest': false,
         'skype': false,
