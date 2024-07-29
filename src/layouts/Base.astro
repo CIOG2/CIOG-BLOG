@@ -6,6 +6,9 @@ import Footer from "../components/general/Footer.astro"
 import '../css/style.css';
 
 const { postData } = Astro.props;
+
+const url = Astro.url.origin;
+const isDev = url.includes('localhost');
 ---
 <!doctype html>
 <html lang="es-mx">
@@ -40,15 +43,19 @@ const { postData } = Astro.props;
     <ViewTransitions />
     <!-- favicon -->
     <link rel="icon" href="https://res.cloudinary.com/dx7uimym1/image/upload/v1721085107/CIOG/Favicon.png" />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G3DH2S12MJ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    <!-- si es dev -->
+    {!isDev && 
+            <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-G3DH2S12MJ"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-        gtag('config', 'G-G3DH2S12MJ');
-    </script>
+            gtag('config', 'G-G3DH2S12MJ');
+        </script>
+    }
+
 </head>
 
 <body class="font-pacamara-inter transition-all duration-300 bg-white dark:bg-pacamara-dark">

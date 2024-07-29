@@ -1,0 +1,103 @@
+.CardMusic__section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 12px 0px;
+}
+.CardMusic__article{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    padding: 12px 20px;
+    box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 20%);
+    border-radius: 10px;
+
+    @media (width > 400px){
+        align-items: flex-start;
+        flex-direction: row;        
+    }
+    @media (width > 500px){
+        align-items: center;
+    }
+}
+
+
+
+
+.CardMusic__picture {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+
+    @media (width > 500px){
+       display: contents;
+        width: 120px;
+        height: 120px;
+    }
+}
+.CardMusic__picture--image {
+    width: 100%;
+
+    @media (width > 500px){
+        width: 120px;
+        height: 120px;
+        margin: 0px;
+    }
+}
+.CardMusic__container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+}
+.CardMusic__container--title {
+    font-size: 22px;
+    margin: 0px;
+    padding: 0px;
+    line-height: 110%;
+}
+.CardMusic__container--name {
+    font-size: 18px;
+    margin-bottom: 0px;
+    line-height: 110%;
+}
+
+
+.CardMusic__container--button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 20%);
+}
+
+.CardMusic__container--button-svg{
+    width: 20px;
+    height: 20px;
+}
+
+.dark{ 
+    .CardMusic__article{
+        box-shadow: 0px 0px 5px 0px rgba(255, 255, 255, 0.4);
+    }
+    
+
+    .CardMusic__container--button{
+        box-shadow: 0px 0px 5px 0px rgba(255, 255, 255, 0.4);
+    }
+
+    .CardMusic__container--button-svg{
+           path{
+            fill: rgb(224, 224, 224);
+        }
+    }
+}
