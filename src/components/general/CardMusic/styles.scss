@@ -56,6 +56,10 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 8px;
+    
+    @media (width < 400px){
+        width: 100%;
+    }
 }
 .CardMusic__container--title {
     font-size: 22px;
