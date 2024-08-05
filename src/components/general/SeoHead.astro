@@ -9,14 +9,14 @@ const permalink = new URL(Astro.url.pathname, Astro.url);
 const image = postData?.data?.image ? postData.data.image.src : config.defaultOgImage;
 const type = postData?.data?.type ? postData.data.type : "website";
 const keywords = postData?.data?.keywords ? postData.data.keywords : "";
-const author = postData?.data?.author?.id ? postData.data.author.id : "";
+const authorSEO = postData?.data?.authorSEO ? postData.data.authorSEO : "";
 ---
 
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 <meta name="keywords" content={keywords} />
-<meta name="author" content={author} />
+<meta name="author" content={authorSEO} />
 
 
 <!-- Open Graph Tags (Facebook) -->

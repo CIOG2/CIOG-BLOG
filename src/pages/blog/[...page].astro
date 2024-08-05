@@ -17,8 +17,31 @@ export async function getStaticPaths({paginate}) {
 }
 
 const { page } = Astro.props;
+
+const data = {
+    id: '',
+    slug: '',
+    body: "",
+    collection: 'blog',
+    data: {
+        title: 'Publicaciones',
+        intro: 'Mis publicaciones más recientes.',
+        tag: '',
+        keywords: 'Carlos Ivan ochoa gomez, CIOG, ciog, blog, culiacan, front-end, woockom, desarrollador web, publicaciones, posts',
+        author: { id: 'ciog', collection: 'author' },
+        authorSEO: 'ciog, carlos ivan, ivan ochoa, carlos ivan ochoa gomez, ciog.dev',
+        image: {
+            src: 'https://res.cloudinary.com/dx7uimym1/image/upload/v1720816573/CIOG/ciog-preview.png',
+            width: 1280,
+            height: 768,
+            format: 'webp'
+        },
+    },
+    pubDate: "2024-07-07T00:00:00.000Z",
+    type: 'blog'
+}
 ---
-<Base>
+<Base postData={data}>
     <section class="container mx-auto max-w-screen-lg px-7 py-10">
         {
             page.data.map((post, index) => {

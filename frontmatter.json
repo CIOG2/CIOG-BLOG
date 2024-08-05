@@ -46,6 +46,11 @@
           "title": "Keywords",
           "name": "keywords",
           "type": "string"
+        },
+        {
+          "title": "AuthorSEO",
+          "name": "authorSEO",
+          "type": "string"
         }
       ]
     },
@@ -75,6 +80,11 @@
         {
           "title": "Keywords",
           "name": "keywords",
+          "type": "string"
+        },
+        {
+          "title": "AuthorSEO",
+          "name": "authorSEO",
           "type": "string"
         }
       ]

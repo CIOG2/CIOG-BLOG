@@ -11,6 +11,7 @@ const blogCollection = defineCollection({
         pubDate: z.date(),
         type: z.string().optional(),
         keywords: z.string().optional(),
+        authorSEO: z.string().optional(),
     }),
 });
 
@@ -23,6 +24,7 @@ const pageCollection = defineCollection({
         image: image().optional(),
         type: z.string().optional(),
         keywords: z.string().optional(),
+        authorSEO: z.string().optional(),
     }),
 });
 
