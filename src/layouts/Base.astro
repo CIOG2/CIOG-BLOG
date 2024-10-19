@@ -35,11 +35,13 @@ const isDev = url.includes('localhost');
     <meta name="view-transition" content="same-origin" />
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="./rss.xml" />
     <SeoHead postData={postData} />
+    <meta name="robots" content="index, follow">
     <link rel="preload" href="/fonts/inter-v12-latin_latin-ext-regular.woff2" as="font" crossorigin>
     <link rel="preload" href="/fonts/inter-v12-latin_latin-ext-700.woff2" as="font" crossorigin>
     <link rel="preload" href="/fonts/space-grotesk-v15-latin_latin-ext-regular.woff2" as="font" crossorigin>
     <link rel="preload" href="/fonts/space-grotesk-v15-latin_latin-ext-600.woff2" as="font" crossorigin>
     <link rel="preload" href="/fonts/space-grotesk-v15-latin_latin-ext-700.woff2" as="font" crossorigin>
+
     <ViewTransitions />
     <!-- favicon -->
     <link rel="icon" href="https://res.cloudinary.com/dx7uimym1/image/upload/v1721085107/CIOG/Favicon.png" />
