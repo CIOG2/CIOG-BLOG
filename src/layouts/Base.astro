@@ -30,11 +30,11 @@ const isDev = url.includes('localhost');
         // Runs on view transitions navigation
         document.addEventListener('astro:after-swap', setDarkMode);
     </script>
+
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="view-transition" content="same-origin" />
-    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="./rss.xml" />
     <SeoHead postData={postData} />
     <meta name="robots" content="index, follow">
     <link rel="canonical" href={realUrl}/>
@@ -49,6 +49,18 @@ const isDev = url.includes('localhost');
     <!-- favicon -->
     <link rel="icon" href="https://res.cloudinary.com/dx7uimym1/image/upload/v1721085107/CIOG/Favicon.png" />
     <!-- si es dev -->
+
+    <!-- PWA -->
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="./rss.xml" />
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000e14">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="CIOG">
+    <script src="/main.js" defer></script>
+    <!-- PWA -->
+    
+
     {!isDev && 
         // <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-G3DH2S12MJ"></script>
