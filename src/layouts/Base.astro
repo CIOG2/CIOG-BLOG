@@ -8,6 +8,7 @@ import '../css/style.css';
 const { postData } = Astro.props;
 
 const url = Astro.url.origin;
+const realUrl = `https://ciog.dev${Astro.url.pathname}`;
 const isDev = url.includes('localhost');
 ---
 <!doctype html>
@@ -36,11 +37,13 @@ const isDev = url.includes('localhost');
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="./rss.xml" />
     <SeoHead postData={postData} />
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href={realUrl}/>
     <link rel="preload" href="/fonts/inter-v12-latin_latin-ext-regular.woff2" as="font" crossorigin>
     <link rel="preload" href="/fonts/inter-v12-latin_latin-ext-700.woff2" as="font" crossorigin>
     <link rel="preload" href="/fonts/space-grotesk-v15-latin_latin-ext-regular.woff2" as="font" crossorigin>
     <link rel="preload" href="/fonts/space-grotesk-v15-latin_latin-ext-600.woff2" as="font" crossorigin>
     <link rel="preload" href="/fonts/space-grotesk-v15-latin_latin-ext-700.woff2" as="font" crossorigin>
+
 
     <ViewTransitions />
     <!-- favicon -->
