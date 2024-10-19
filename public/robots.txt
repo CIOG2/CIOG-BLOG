@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-sitemap: https://ciog.dev/sitemap.xml
+sitemap: https://ciog.dev/sitemap-0.xml
