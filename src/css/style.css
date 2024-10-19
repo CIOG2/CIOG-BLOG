@@ -105,3 +105,23 @@ body::-webkit-scrollbar-thumb {
     outline: 0px solid theme('colors.pacamara-accent');
     border-radius: 10px;
 }
+
+
+#installButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: #000e14;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 1000;
+}
+
+.dark #installButton {
+    background-color: #fff;
+    color: #000e14;
+}
