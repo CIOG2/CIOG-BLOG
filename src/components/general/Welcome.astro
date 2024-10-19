@@ -8,6 +8,8 @@ import slide3 from '../../assets/slide-3.jpg';
 import slide4 from '../../assets/slide-4.jpg';
 import slide5 from '../../assets/slide-5.jpg';
 ---
+
+
 <section class="
         container mx-auto max-w-screen-xl px-7 
         lg:min-h-[500px] content-center font-pacamara
@@ -17,7 +19,56 @@ import slide5 from '../../assets/slide-5.jpg';
         prose-img:mt-0 prose-img:mb-0  
         dark:prose-headings:text-white
     ">
+        <button id="installButton" style="display: none;">
+            Instalar la app
+        </button>
+        <style>
+            #installButton {
+                position: fixed;
+                bottom: 10px;
+                right: 10px;
+                padding: 10px 20px;
+                background-color: #000e14;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+        </style>
+        <script>
+            let deferredPrompt;
 
+window.addEventListener('beforeinstallprompt', (event) => {
+  // Prevenir que el navegador muestre automáticamente el prompt de instalación
+  event.preventDefault();
+  
+  // Guardar el evento para mostrar el prompt más tarde
+  deferredPrompt = event;
+  
+  // Mostrar un botón o alerta para invitar al usuario a instalar
+  const installButton = document.getElementById('installButton');
+  installButton.style.display = 'block';
+
+  installButton.addEventListener('click', () => {
+    // Mostrar el prompt de instalación
+    deferredPrompt.prompt();
+    
+    // Esperar la respuesta del usuario
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('El usuario aceptó la instalación');
+      } else {
+        console.log('El usuario rechazó la instalación');
+      }
+      // Resetear deferredPrompt
+      deferredPrompt = null;
+    });
+  });
+});
+
+        </script>
+      
     <h1>
         <span class="gradient-underline">
             <span>Contemos Historias</span>
