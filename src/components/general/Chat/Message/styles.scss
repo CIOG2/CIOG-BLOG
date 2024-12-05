@@ -1,0 +1,134 @@
+.chat__message--container{
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 1px 16px;
+    margin-top: 8px;
+    z-index: 1;
+
+    &.chat__message--container-consecutive{
+        margin-top: 0px;
+        .chat__message{
+            border-radius: 8px !important;
+        }
+    }
+}
+.chat__message{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: auto; 
+    max-width: 600px;
+    padding: 8px 6px 8px 8px;
+}
+
+.chat__message--elements-container{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 3px;
+    margin: 4px 0px 0px 6px;
+}
+
+.chat__message--text{
+    color: #111b21;
+    margin: 0px;
+    line-height: 110%;
+    font-size: 1rem;
+}
+
+.chat__message--time{
+    font-size: 11px;
+    font-size: inter;
+    color: #667781;
+    margin: 0px;
+    line-height: 100%;
+}
+
+.chat__message--status{
+    svg{
+        margin-bottom: 2px;
+        color: #8696a0;
+    }
+}
+
+.chat__message--status-read{
+    svg{
+        color: #53bdeb;
+    }
+}
+
+
+.chat__message--container-sent{
+    .chat__message--arrow{
+        position: absolute;
+        right: -8px;
+        top: 0px;
+        svg{
+            color: #d9fdd2;            
+        }
+    }    
+
+    .chat__message{
+        border-radius: 8px 0px 8px 8px;
+        background-color: #d9fdd2;
+    }
+}
+
+.chat__message--container-received{
+    justify-content: flex-start;
+
+    .chat__message--arrow{
+        position: absolute;
+        left: -8px;
+        top: 0px;
+        transform: rotateY(180deg);
+        svg{
+            color: #ffffff;            
+        }
+    }
+
+    .chat__message{
+        border-radius: 0px 8px 8px 8px;
+        background-color: #ffffff;
+    }
+}
+
+
+
+
+
+
+
+.dark {
+    .chat__message--container-sent{
+        .chat__message{
+            background-color: #015c4b;
+        }
+
+        .chat__message--arrow svg{
+            color: #015c4b;            
+        }
+    }
+    .chat__message--container-received{
+        .chat__message{
+            background-color: #202c33;
+        }
+
+        .chat__message--arrow svg{
+            color: #202c33;            
+        }
+    }
+    
+    .chat__message--text{
+        color: #e9edef;
+    }
+    
+    .chat__message--time{
+        color: #ffffff99;
+    }
+}

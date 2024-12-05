@@ -1,0 +1,23 @@
+---
+import './styles.scss';
+const { 
+    title,
+    image,
+} = Astro.props;
+
+---
+
+
+<header class="chat__header">
+    <section class="chat__header--section">
+        <picture class="chat__header--picture">
+            <img class="chat__header--image" src={image} alt={title}>
+        </picture>
+    
+        <p>
+            {title}
+        </p>
+    </section>
+
+
+</header>
