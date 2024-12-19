@@ -39,8 +39,8 @@ const author = await getEntry(entry.data.author);
             <a 
             class="
               text-pacamara-primary/50 font-pacamara-space tracking-widest transition-all duration-300 text-[16px]
-              dark:text-white/40 flex items-center gap-2 border-b-2 border-transparent"
-            href="#" id="shareButton">
+              dark:text-white/40 flex items-center gap-2 border-b-2 border-transparent shareButton"
+            href="#" >
             <svg 
               class="w-4 h-4 fill-current"
               xmlns="http://www.w3.org/2000/svg" 
@@ -77,8 +77,8 @@ const author = await getEntry(entry.data.author);
       <a 
         class="
         text-pacamara-primary/50 font-pacamara-space tracking-widest transition-all duration-300 text-[16px]
-        dark:text-white/40 flex items-center gap-2 border-b-2 border-transparent"
-        href="#" id="shareButton2">
+        dark:text-white/40 flex items-center gap-2 border-b-2 border-transparent shareButton"
+        href="#">
         <svg 
         class="w-4 h-4 fill-current"
         xmlns="http://www.w3.org/2000/svg" 
@@ -103,37 +103,23 @@ const author = await getEntry(entry.data.author);
 
 
 <script>
-  document.getElementById('shareButton').addEventListener('click', async (event) => {
-    event.preventDefault(); // Evita que el enlace recargue la página
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: document.title,
-          text: document.getElementById('title-blog').textContent,
-          url: window.location.href, // Usa la URL actual
-        });
-      } catch (error) {
-        console.error('Error al compartir:', error);
+  document.addEventListener('click', async (event) => {
+    // Verifica si el elemento clicado es un botón con la clase 'shareButton'
+    if (event.target && event.target.classList.contains('shareButton')) {
+      event.preventDefault(); // Evita cualquier comportamiento predeterminado
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            text: document.getElementById('title-blog').textContent,
+            url: window.location.href, // Usa la URL actual
+          });
+        } catch (error) {
+          // console.error('Error al compartir:', error);
+        }
+      } else {
+        alert('La funcionalidad de compartir no está disponible en este navegador.');
       }
-    } else {
-      alert('La funcionalidad de compartir no está disponible en este navegador.');
-    }
-  });
-
-  document.getElementById('shareButton2').addEventListener('click', async (event) => {
-    event.preventDefault(); // Evita que el enlace recargue la página
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: document.title,
-          text: document.getElementById('title-blog').textContent,
-          url: window.location.href, // Usa la URL actual
-        });
-      } catch (error) {
-        console.error('Error al compartir:', error);
-      }
-    } else {
-      alert('La funcionalidad de compartir no está disponible en este navegador.');
     }
   });
 </script>
