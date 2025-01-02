@@ -38,9 +38,10 @@ const author = await getEntry(entry.data.author);
             <PublishDate date={entry.data.pubDate} />
             <a 
             class="
-              text-pacamara-primary/50 font-pacamara-space tracking-widest transition-all duration-300 text-[16px]
-              dark:text-white/40 flex items-center gap-2 border-b-2 border-transparent shareButton"
-            href="#" >
+              w-fit cursor-pointer text-pacamara-primary/50 font-pacamara-space tracking-widest transition-all duration-300 text-[16px]
+            dark:text-white/40 flex items-center gap-2 border-b-2 border-transparent shareButton"
+              role="button"
+            >
             <svg 
               class="w-4 h-4 fill-current"
               xmlns="http://www.w3.org/2000/svg" 
@@ -76,9 +77,10 @@ const author = await getEntry(entry.data.author);
       
       <a 
         class="
-        text-pacamara-primary/50 font-pacamara-space tracking-widest transition-all duration-300 text-[16px]
+        w-fit cursor-pointer text-pacamara-primary/50 font-pacamara-space tracking-widest transition-all duration-300 text-[16px]
         dark:text-white/40 flex items-center gap-2 border-b-2 border-transparent shareButton"
-        href="#">
+        role="button"
+      >
         <svg 
         class="w-4 h-4 fill-current"
         xmlns="http://www.w3.org/2000/svg" 
