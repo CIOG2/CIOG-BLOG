@@ -35,7 +35,7 @@ window.addEventListener('beforeinstallprompt', (event) => {
   
   // Mostrar un botón o alerta para invitar al usuario a instalar
   const installButton = document.getElementById('installButton');
-  installButton.style.display = 'block';
+//   installButton.style.display = 'block';
 
   installButton.addEventListener('click', () => {
     // Mostrar el prompt de instalación
@@ -44,9 +44,9 @@ window.addEventListener('beforeinstallprompt', (event) => {
     // Esperar la respuesta del usuario
     deferredPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
-        console.log('El usuario aceptó la instalación');
+        // console.log('El usuario aceptó la instalación');
       } else {
-        console.log('El usuario rechazó la instalación');
+        // console.log('El usuario rechazó la instalación');
       }
       // Resetear deferredPrompt
       deferredPrompt = null;
@@ -68,7 +68,7 @@ window.addEventListener('beforeinstallprompt', (event) => {
     </p>
 
     <p>
-        Una nueva publicación cada semana... al menos, esa es la intención.
+        Una nueva publicación cada mes... al menos, esa es la intención.
     </p>
     <Image src={logoImage} width={600} alt="carlos ivan ochoa gomez" loading="eager" class="relative rounded-[15px] w-[400px] "  />
 

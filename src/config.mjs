@@ -14,6 +14,7 @@ export default {
         'mastodon': false,
         'pinterest': false,
         'skype': false,
-        'twitter': false
+        'twitter': false,
+        'tiktok': 'https://www.tiktok.com/@ciog.dev',
     }
 }
