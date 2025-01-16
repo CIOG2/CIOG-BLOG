@@ -3,6 +3,8 @@ import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
+import preact from "@astrojs/preact";
+
 const site = "https://ciog.dev";
 
 const pagesPriority = [
@@ -18,17 +20,13 @@ const getPagePriority = (url) => {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    tailwind(),
-    mdx(),
-    sitemap({
-      serialize(item) {
-        item.priority = getPagePriority(item.url);
-        item.lastmod = new Date();
-        item.changefreq = "weekly"; // Default changefreq
-        return item;
-      },
-    }),
-  ],
+  integrations: [tailwind(), mdx(), sitemap({
+    serialize(item) {
+      item.priority = getPagePriority(item.url);
+      item.lastmod = new Date();
+      item.changefreq = "weekly"; // Default changefreq
+      return item;
+    },
+  }), preact()],
   site: site,
 });
