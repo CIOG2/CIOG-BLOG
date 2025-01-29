@@ -57,7 +57,17 @@ const author = await getEntry(entry.data.author);
         </p>
     </div>
     {entry.data.image && 
-      <Image src={entry.data.image} alt={entry.data.title} width="1200" height="250" loading="eager" decoding="sync" class="block relative mx-auto mt-10 object-contain h-72 md:h-[500px] md:w-[500px] image-shine rounded-[15px]" loading="eager" />
+      <Image 
+        src={entry.data.image} 
+        alt={entry.data.title} 
+        width="1200" 
+        height="250" 
+        loading="eager" 
+        decoding="sync" 
+        class="block relative mx-auto mt-10 object-contain h-72 md:h-[500px] md:w-[500px] image-shine rounded-[15px]" 
+        loading="eager" 
+        style=`view-transition-name: post-image-${entry.data.title.split(" ").join("-").toLocaleLowerCase()}` 
+      />
     }
     <div class="
         lg:px-0 pt-10 mb-5 mx-auto

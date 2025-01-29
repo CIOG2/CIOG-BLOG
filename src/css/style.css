@@ -1,3 +1,20 @@
+::view-transition-old(post-image),
+::view-transition-new(post-image) {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
 :root {
     --gradient-space: 20px;
     --gradient-height: 2px;
