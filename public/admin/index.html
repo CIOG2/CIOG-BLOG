@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 </head>
 <body>
   <script>
-    CMS.init();
+    if (typeof CMS !== "undefined") {
+      CMS.init();
+    } else {
+      console.error("Netlify CMS no se ha cargado correctamente.");
+    }
   </script>
 </body>
 </html>
