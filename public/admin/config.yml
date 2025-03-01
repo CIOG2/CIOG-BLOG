@@ -2,8 +2,8 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "public/images"
-public_folder: "/images"
+media_folder: "src/assets"
+public_folder: "../../assets"
 
 collections:
   - name: "posts"
@@ -20,5 +20,6 @@ collections:
       - { label: "Etiqueta", name: "tag", widget: "string" }
       - { label: "Autor", name: "author", widget: "string", default: "ciog" }
       - { label: "Imagen principal", name: "image", widget: "image" }
-      - { label: "Palabras clave (SEO)", name: "keywords", widget: "list", default: ["Poesía"] }
-      - { label: "Autor SEO", name: "authorSEO", widget: "list", default: ["ciog"] }
+      - { label: "Palabras clave (SEO)", name: "keywords", widget: "string", default: ["Poesía"] }
+      - { label: "Autor SEO", name: "authorSEO", widget: "string", default: ["ciog"] }
+      - { label: "Cuerpo", name: "body", widget: "markdown" }
