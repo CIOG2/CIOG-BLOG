@@ -10,7 +10,8 @@ authorSEO: ciog, carlos ivan, ivan ochoa, carlos ivan ochoa gomez, ciog.dev
 ---
 import { Image } from 'astro:assets'
 import CardMusic from '../../components/general/CardMusic/index.astro'
-import ChatLayout from '../../components/general/Chat/Layout/index.astro'
+import { WorkInProgressBanner } from '../../components/general/WorkInProgressBanner';
+
 
 
 ### Recomendación para escuchar mientras lees
@@ -23,7 +24,12 @@ import ChatLayout from '../../components/general/Chat/Layout/index.astro'
 <hr/>
 
 
-_Aún lo recuerdo como si fuera ayer. Esperé este día durante todo el año; la noche anterior no podía dormir de la emoción._
+<WorkInProgressBanner 
+  client:load 
+/>
+
+
+{/* _Aún lo recuerdo como si fuera ayer. Esperé este día durante todo el año; la noche anterior no podía dormir de la emoción._
 
 _no se porque pero ese dia simplente todo era bueno, me levante temprano prendi la tele y estaba saliedo mi pobre angelito me acoste a ver 
 lo mientras los demás en la casa se levantaban_
@@ -75,20 +81,12 @@ Voltee a mi alrededor y mire a los mas pequeños de la casa, mire sus ojos y bri
 _Pero en algún momento ya no se sintio así, ahora ya no me importaba_
 
 
+ */}
 
 
 
 
 
-
-
-
-
-
-{/* — _Ey, ¿qué ondas, Ester? ¿Qué vas a comer?_ — me preguntó Lupita mientras se sentaba en una silla a un lado de mí en el comedor del trabajo. <br/>
-— _Ayy... no sé, lo que traje de comer casi no se me antoja. ¿No sabes si ya pasó don Arturo? Se me antoja más una torta._ <br/>
-— _Pues yo no lo he visto pasar, pero de seguro ya no tarda, casi siempre viene como a esta hora._ <br/>
-— _Sí, como a esta hora viene más o menos, lo voy a esperar un ratito a ver si llega_ — dije mientras miraba mi lonche de huevos con jamón. */}
 
 
 

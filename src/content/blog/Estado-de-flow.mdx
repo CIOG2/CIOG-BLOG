@@ -10,7 +10,7 @@ authorSEO: ciog, carlos ivan, ivan ochoa, carlos ivan ochoa gomez, ciog.dev
 ---
 import { Image } from 'astro:assets'
 import YoutubeVideo from '../../components/general/YoutubeVideo/index.astro'
-
+import { WorkInProgressBanner } from '../../components/general/WorkInProgressBanner';
 
 
 
@@ -72,6 +72,9 @@ y si no mejoras tus habilidades y aumentas la difultad de las tareas lo que cons
 y si las habilidades siguen mejorando y la dificultad de la tarea se mantiene baja te vas a terminar aburriendo,
 
 
+<WorkInProgressBanner 
+  client:load 
+/>
 
 
 
@@ -85,7 +88,7 @@ y si las habilidades siguen mejorando y la dificultad de la tarea se mantiene ba
 
 
 
-esa sencion se le conoce comon el "Estado de flow" por el psicologo *****
+{/* esa sencion se le conoce comon el "Estado de flow" por el psicologo *****
 una sencion donde simplemente te encuentras fluyendo 
 
 
@@ -100,7 +103,7 @@ sensacion de control
 
 presion autotelica
 
-sensacion de tiempo alterada
+sensacion de tiempo alterada */}
 
 ## Recomendaciones:
 película <a href="https://www.disneyplus.com/es-419/browse/entity-02a00d44-4607-4866-862f-9d260a8dbdca" target="_blank">Soul</a> de Pixar
