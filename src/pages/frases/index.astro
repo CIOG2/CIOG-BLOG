@@ -1,0 +1,43 @@
+---
+// src/pages/frases/index.astro
+import { getCollection } from 'astro:content';
+
+// Obtenemos la colección de frases en el servidor
+const frases = await getCollection("frases");
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirigiendo a una frase aleatoria...</title>
+    <script type="text/javascript">
+      // Espera a que el DOM se cargue
+      document.addEventListener("DOMContentLoaded", () => {
+        // Obtenemos las frases inyectadas en el HTML y las parseamos
+        const frasesData = document.getElementById("frases-data").textContent;
+        const frases = JSON.parse(frasesData);
+
+        // Si no hay frases, muestra un mensaje en la página
+        if (!frases || frases.length === 0) {
+          document.body.innerHTML = "<p>No hay frases disponibles</p>";
+          return;
+        }
+
+        // Selecciona una frase aleatoria
+        const randomIndex = Math.floor(Math.random() * frases.length);
+        const random = frases[randomIndex];
+
+        // Redirige a la ruta dinámica del post
+        window.location.href = `/frases/${random.slug}`;
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Inyectamos la información de la colección de frases en un elemento oculto -->
+    <div id="frases-data" style="display: none">
+      {JSON.stringify(frases)}
+    </div>
+    <p>Redirigiendo, por favor espera...</p>
+  </body>
+</html>

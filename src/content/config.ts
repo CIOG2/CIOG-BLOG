@@ -37,8 +37,27 @@ const authorCollection = defineCollection({
     }),
 });
 
+const frasesCollection = defineCollection({
+    type: 'content', // v2.5.0 and later
+    schema: ({image}) => z.object({
+        title: z.string(),
+        intro: z.string(),
+        tag: z.string(),
+        image: image().optional(),
+        author: reference('author'),
+        pubDate: z.date(),
+        type: z.string().optional(),
+        keywords: z.string().optional(),
+        authorSEO: z.string().optional(),
+    }),
+});
+
+
+
+
 export const collections = {
     'blog': blogCollection,
     'author': authorCollection,
     'page': pageCollection,
+    'frases': frasesCollection,
 };
