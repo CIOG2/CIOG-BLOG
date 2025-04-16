@@ -20,7 +20,7 @@ const { entry } = Astro.props;
 entry.data.type = 'frases';
 const { Content } = await entry.render();
 const author = entry.data.author?.id && entry.data.author?.collection
-  ? await getEntry(entry.data.author)a
+  ? await getEntry(entry.data.author)
   : null;
 ---
 
