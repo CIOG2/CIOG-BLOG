@@ -50,7 +50,6 @@ const frasesCollection = defineCollection({
         type: z.string().optional(),
         keywords: z.string().optional(),
         authorSEO: z.string().optional(),
-        haveMusic: z.boolean(),
     }),
 });
 
