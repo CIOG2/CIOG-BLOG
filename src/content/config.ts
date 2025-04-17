@@ -1,4 +1,5 @@
 import { defineCollection, reference, z } from 'astro:content';
+import { boolean } from 'astro:schema';
 
 const blogCollection = defineCollection({
     type: 'content', // v2.5.0 and later
@@ -49,6 +50,7 @@ const frasesCollection = defineCollection({
         type: z.string().optional(),
         keywords: z.string().optional(),
         authorSEO: z.string().optional(),
+        haveMusic: z.boolean(),
     }),
 });
 

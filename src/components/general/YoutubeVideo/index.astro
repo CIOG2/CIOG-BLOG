@@ -1,14 +1,56 @@
 ---
 import "./styles.scss"
 const youtubeLink = Astro.props.url;
-const URL = youtubeLink.replace("watch?v=", "embed/");
+const URL = youtubeLink.replace("watch?v=", "embed/") + "?enablejsapi=1";
 ---
 
 <iframe 
-    class="YoutubeVideo__iframe"
-    src={ URL }
-    title="YouTube video player" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    allowfullscreen>
+  id="youtube-player"
+  class="YoutubeVideo__iframe"
+  src={ URL }
+  title="YouTube video player" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen>
 </iframe>
+
+<script is:inline>
+  let player;
+  let isPlaying = false;
+  const playButton = document.getElementById('custom-play');
+
+  // Cargar la API de YouTube
+  const tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.head.appendChild(tag);
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('youtube-player', {
+      events: {
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+
+  // Manejar cambio de estado (play / pause)
+  function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+      isPlaying = true;
+      playButton.innerText = "⏸ Pausar Música";
+    } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+      isPlaying = false;
+      playButton.innerText = "▶ Reproducir Música";
+    }
+  }
+
+  // Botón personalizado toggle play/pause
+  playButton.addEventListener('click', () => {
+    if (!player) return;
+
+    if (isPlaying) {
+      player.pauseVideo();
+    } else {
+      player.playVideo();
+    }
+  });
+</script>
