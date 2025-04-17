@@ -11,6 +11,21 @@ const frases = await getCollection("frases");
   <head>
     <meta charset="UTF-8" />
     <title>Redirigiendo a una frase aleatoria...</title>
+    <script is:inline>
+      const setDarkMode = () => {
+          if (localStorage.darkMode === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark')
+              localStorage.darkMode = 'true';
+          } else {
+              document.documentElement.classList.remove('dark')
+              localStorage.darkMode = 'false';
+          }
+      }
+
+      setDarkMode();
+      // Runs on view transitions navigation
+      document.addEventListener('astro:after-swap', setDarkMode);
+  </script>
     <script type="text/javascript">
       // Espera a que el DOM se cargue
       document.addEventListener("DOMContentLoaded", () => {
@@ -38,6 +53,5 @@ const frases = await getCollection("frases");
     <div id="frases-data" style="display: none">
       {JSON.stringify(frases)}
     </div>
-    <p>Redirigiendo, por favor espera...</p>
   </body>
 </html>
