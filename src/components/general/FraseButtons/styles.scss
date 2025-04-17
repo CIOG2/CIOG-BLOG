@@ -1,0 +1,63 @@
+
+:root {
+    --btn-bg-light: rgba(26, 26, 26, 0.9);
+    --btn-text-light: #ffffff;
+    --btn-bg-dark: #ffffff;
+    --btn-text-dark: #1a1a1a;
+    --btn-hover-light: #1a1a1a;
+    --btn-hover-dark: #f0f0f0;
+  }
+  
+  .frase-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 10px 0px 20px;
+}
+  
+  .btn-frase {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: var(--btn-bg-light);
+    color: var(--btn-text-light);
+    font-weight: 500;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    text-decoration: none;
+
+    & svg{
+      width: 18px;
+      height: 18px;
+    }
+  }
+  
+  .btn-frase:hover {
+    transform: scale(1.05);
+    background-color: var(--btn-hover-light);
+  }
+  
+  /* DARK MODE via prefers-color-scheme */
+  @media (prefers-color-scheme: dark) {
+    .btn-frase {
+      background-color: var(--btn-bg-dark);
+      color: var(--btn-text-dark);
+    }
+  
+    .btn-frase:hover {
+      background-color: var(--btn-hover-dark);
+    }
+  }
+  
+  /* DARK MODE via class */
+  .dark .btn-frase {
+    background-color: var(--btn-bg-dark);
+    color: var(--btn-text-dark);
+  }
+  
+  .dark .btn-frase:hover {
+    background-color: var(--btn-hover-dark);
+  }
+  
