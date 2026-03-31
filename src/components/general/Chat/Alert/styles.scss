@@ -10,7 +10,7 @@
 .chat__alert--line{
     flex: 1;
     height: 1px;
-    background-color: rgba(17, 27, 33, 0.08);
+    background-color: #e3e6e8;
 }
 
 .chat__alert--bubble{
@@ -19,7 +19,7 @@
     gap: 6px;
     padding: 6px 12px;
     border-radius: 14px;
-    background-color: rgba(17, 27, 33, 0.12);
+    background-color: #f0f2f5;
     color: #54656f;
     font-size: 13px;
     font-weight: 500;
@@ -44,8 +44,9 @@
 }
 
 .chat__alert--time .chat__alert--bubble{
-    background-color: rgba(17, 27, 33, 0.12);
+    background-color: #ffffff;
     color: #54656f;
+    box-shadow: 0 1px 2px rgba(11, 20, 26, 0.12);
 }
 
 .chat__alert--blocked .chat__alert--bubble{
@@ -54,16 +55,16 @@
 }
 
 .chat__alert--blocked .chat__alert--line{
-    background-color: rgba(198, 60, 60, 0.25);
+    background-color: #facdcd;
 }
 
 .chat__alert--info .chat__alert--bubble{
-    background-color: rgba(83, 189, 235, 0.2);
+    background-color: #e1f3fb;
     color: #0b6c93;
 }
 
 .chat__alert--info .chat__alert--line{
-    background-color: rgba(83, 189, 235, 0.25);
+    background-color: #c6e6f5;
 }
 
 .dark {

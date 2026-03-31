@@ -1,7 +1,7 @@
 ---
 title: El chat
 pubDate: 2024-12-16
-intro: jalowin
+intro: Un cuento contado en mensajes.
 tag: cuento
 author: ciog
 image: ../../assets/La-conversacion.png
@@ -31,31 +31,40 @@ import { WorkInProgressBanner } from '../../components/general/WorkInProgressBan
 
 <ChatLayout>
     <HeaderChat
-        title="+ 52 6674 3036 66"
+        title="+52 667 430 3666"
         image=""
     />
     <Message
         type="received"
         text = "Hola"
         consecutive={false}
-        time="11:11 PM"
+        time="11:11 p. m."
         status=""
     />
     <Message
         type="sent"
         text = "Hola?"
         consecutive={false}
-        time="11:28 PM"
+        time="11:28 p. m."
         status="read"
     />
     <Message
         type="received"
         contentType="sticker"
-        stickerSrc={stickerAstronauta.src}
-        stickerAlt="Astronauta saludando"
+        stickerSrc="https://media.tenor.com/lc7-28XVv94AAAAM/grand-m-belimba.gif"
+        stickerAlt="Meme"
         consecutive={false}
-        time="11:29 PM"
+        time="11:29 p. m."
         status=""
+    />
+    <Message
+        type="sent"
+        contentType="sticker"
+        stickerSrc="https://media.tenor.com/lc7-28XVv94AAAAM/grand-m-belimba.gif"
+        stickerAlt="Meme respondido"
+        consecutive={false}
+        time="11:30 p. m."
+        status="read"
     />
     <Message
         type="sent"
@@ -67,19 +76,40 @@ import { WorkInProgressBanner } from '../../components/general/WorkInProgressBan
         audioAvatarAlt="CIoG"
         audioAccentColor="#1fa3f7"
         consecutive={false}
-        time="11:32 PM"
+        time="11:32 p. m."
         status="read"
+    />
+    <Message
+        type="received"
+        contentType="audio"
+        audioSrc="https://res.cloudinary.com/dx7uimym1/video/upload/v1726244736/CIOG/Music/dream.mp3"
+        audioDuration="0:15"
+        audioAvatarSrc="https://avatars.githubusercontent.com/u/1?v=4"
+        audioAvatarAlt="Desconocido"
+        audioAccentColor="#53bdeb"
+        consecutive={false}
+        time="11:35 p. m."
+        status=""
     />
     <ChatAlert
         variant="time"
-        label="Hoy 8:10 a. m."
+        label="Hoy, 8:10 a. m."
     />
     <Message
         type="received"
         text = "Acabo de despertar, hablamos luego."
         consecutive={false}
-        time="8:10 AM"
-        status="received"
+        time="8:10 a. m."
+        status=""
+    />
+    <Message
+        type="sent"
+        contentType="image"
+        imageSrc="https://res.cloudinary.com/dx7uimym1/image/upload/v1720811866/CIOG/Cohete%20despegando.webp"
+        imageAlt="Cohete despegando"
+        consecutive={false}
+        time="8:12 a. m."
+        status="read"
     />
     <ChatAlert
         variant="blocked"
@@ -88,7 +118,7 @@ import { WorkInProgressBanner } from '../../components/general/WorkInProgressBan
 
 </ChatLayout>
 
-#### Al día siguente
+#### Al día siguiente
 
 
 

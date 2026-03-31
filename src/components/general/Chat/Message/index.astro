@@ -1,6 +1,8 @@
 ---
 import './styles.scss';
 import AudioMessage from '../AudioMessage/index';
+import ImageMessage from '../ImageMessage/index';
+import StickerMessage from '../StickerMessage/index';
 
 const { 
     type = 'sent', // Message is sent or received
@@ -17,16 +19,20 @@ const {
     audioAccentColor, // Custom accent color for audio waveform
     stickerSrc, // Source for sticker messages
     stickerAlt = 'Sticker', // Sticker alternative text
+    imageSrc, // Source for image messages
+    imageAlt = 'Foto', // Image title or alt text
 } = Astro.props;
 
 const class1 = `chat__message--container-${ type }`;
 const class2 = consecutive ? 'chat__message--container-consecutive' : '';
+const class3 = (contentType === 'sticker') ? 'chat__message--container-is-sticker' : '';
 const classStatus = status ? `chat__message--status-${ status }` : '';
-const containerClasses = ['chat__message--container', class1, class2].filter(Boolean).join(' ');
+const containerClasses = ['chat__message--container', class1, class2, class3].filter(Boolean).join(' ');
 const statusClasses = ['chat__message--status', classStatus].filter(Boolean).join(' ');
 
 const isAudioMessage = contentType === 'audio' && audioSrc;
 const isStickerMessage = contentType === 'sticker' && stickerSrc;
+const isImageMessage = contentType === 'image' && imageSrc;
 const hasText = typeof text === 'string' && text.trim().length > 0;
 const hasStatus = ['sent', 'received', 'read'].includes(status);
 const showMetadata = !isAudioMessage && Boolean(time || hasStatus);
@@ -35,7 +41,7 @@ const showMetadata = !isAudioMessage && Boolean(time || hasStatus);
 <div class={containerClasses}>
     <div class="chat__message">
 
-        {!consecutive &&
+        {!consecutive && !isStickerMessage &&
             <div class="chat__message--arrow">
                 <svg viewBox="0 0 8 13" height="13" width="8" preserveAspectRatio="xMidYMid meet" version="1.1" x="0px" y="0px" enable-background="new 0 0 8 13"><title>tail-out</title><path opacity="0.13" d="M5.188,1H0v11.193l6.467-8.625 C7.526,2.156,6.958,1,5.188,1z"></path><path fill="currentColor" d="M5.188,0H0v11.193l6.467-8.625C7.526,1.156,6.958,0,5.188,0z"></path></svg>
             </div>
@@ -43,7 +49,11 @@ const showMetadata = !isAudioMessage && Boolean(time || hasStatus);
 
         {isStickerMessage &&
             <div class="chat__message--sticker">
-                <img src={stickerSrc} alt={stickerAlt} loading="lazy" decoding="async" />
+                <StickerMessage
+                    client:idle
+                    src={stickerSrc}
+                    alt={stickerAlt}
+                />
             </div>
         }
 
@@ -52,13 +62,22 @@ const showMetadata = !isAudioMessage && Boolean(time || hasStatus);
                 <AudioMessage
                     client:idle
                     src={audioSrc}
-                    label={audioLabel}
                     durationHint={audioDuration}
                     messageTime={time}
                     status={status}
                     avatarSrc={audioAvatarSrc}
                     avatarAlt={audioAvatarAlt}
                     accentColor={audioAccentColor}
+                />
+            </div>
+        }
+
+        {isImageMessage &&
+            <div class="chat__message--image">
+                <ImageMessage
+                    client:idle
+                    src={imageSrc}
+                    alt={imageAlt}
                 />
             </div>
         }

@@ -1,0 +1,62 @@
+.chat-image-msg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.chat-image-msg__thumb {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.chat-image-modal {
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    max-height: none;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+
+    /* Flex context for image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &:not([open]) {
+        display: none;
+    }
+
+    &::backdrop {
+        /* Override default backdrop since the dialog is full screen */
+        background: transparent;
+    }
+}
+
+.chat-image-modal__img {
+    max-width: min(100vw, 900px);
+    max-height: 95vh;
+    object-fit: contain;
+    cursor: zoom-in;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    user-select: none;
+    will-change: transform;
+
+    &.is-zoomed {
+        transform: scale(2.5);
+        cursor: zoom-out;
+    }
+}

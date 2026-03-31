@@ -1,0 +1,13 @@
+.chat-sticker-msg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.chat-sticker-msg__thumb {
+    display: block;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
