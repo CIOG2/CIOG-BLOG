@@ -1,11 +1,11 @@
 ---
-title: La conversación
+title: El chat
 pubDate: 2024-12-16
-intro: El día comenzaba como cualquier otro, me desperté temprano, me preparé un café y empecé a hacer el desayuno.
-tag: Historia
+intro: jalowin
+tag: cuento
 author: ciog
 image: ../../assets/La-conversacion.png
-keywords: saca la basura, cuento, ciog, carlos ivan, ivan ochoa, carlos ivan ochoa gomez, ciog.dev, historia
+keywords: hallowen, cuento, ciog, carlos ivan, ivan ochoa, carlos ivan ochoa gomez, ciog.dev
 authorSEO: ciog, carlos ivan, ivan ochoa, carlos ivan ochoa gomez, ciog.dev
 ---
 import { Image } from 'astro:assets'
@@ -13,6 +13,9 @@ import CardMusic from '../../components/general/CardMusic/index.astro'
 import ChatLayout from '../../components/general/Chat/Layout/index.astro'
 import Message from '../../components/general/Chat/Message/index.astro'
 import HeaderChat from '../../components/general/Chat/Header/index.astro'
+import ChatAlert from '../../components/general/Chat/Alert/index.astro'
+import stickerAstronauta from '../../assets/Astronauta.webp'
+import avatarCiog from '../../assets/ciog.jpg'
 import { WorkInProgressBanner } from '../../components/general/WorkInProgressBanner';
 
 
@@ -28,273 +31,64 @@ import { WorkInProgressBanner } from '../../components/general/WorkInProgressBan
 
 <ChatLayout>
     <HeaderChat
-        title="Compa"
-        image="https://res.cloudinary.com/dx7uimym1/image/upload/v1733454281/CIOG/Blogs/La-conversacion/panas.webp"
+        title="+ 52 6674 3036 66"
+        image=""
+    />
+    <Message
+        type="received"
+        text = "Hola"
+        consecutive={false}
+        time="11:11 PM"
+        status=""
     />
     <Message
         type="sent"
-        text = "Que rollo w, que andas haciendo?"
+        text = "Hola?"
         consecutive={false}
         time="11:28 PM"
         status="read"
     />
     <Message
         type="received"
-        text = "Que rollo"
+        contentType="sticker"
+        stickerSrc={stickerAstronauta.src}
+        stickerAlt="Astronauta saludando"
         consecutive={false}
-        time="11:30 PM"
-        status=""
-    />
-    <Message
-        type="received"
-        text = "nada, viendo una pelicula"
-        consecutive={true}
-        time="11:31 PM"
-        status=""
-    />
-    <Message
-        type="received"
-        text = "que paso?"
-        consecutive={true}
-        time="11:31 PM"
+        time="11:29 PM"
         status=""
     />
     <Message
         type="sent"
-        text = "Te quiero contar algo"
+        contentType="audio"
+        audioSrc="https://res.cloudinary.com/dx7uimym1/video/upload/v1726244736/CIOG/Music/dream.mp3"
+        audioLabel="Nota de voz"
+        audioDuration="0:12"
+        audioAvatarSrc={avatarCiog.src}
+        audioAvatarAlt="CIoG"
+        audioAccentColor="#1fa3f7"
         consecutive={false}
         time="11:32 PM"
         status="read"
     />
-    <Message
-        type="sent"
-        text = "que vas a hacer mañana?"
-        consecutive={true}
-        time="11:32 PM"
-        status="read"
+    <ChatAlert
+        variant="time"
+        label="Hoy 8:10 a. m."
     />
     <Message
         type="received"
-        text = "nada, porque que te paso?"
+        text = "Acabo de despertar, hablamos luego."
         consecutive={false}
-        time="11:33 PM"
-        status=""
+        time="8:10 AM"
+        status="received"
     />
-    <Message
-        type="sent"
-        text = "Jalate mañana a un desayuno de señoras o que?"
-        consecutive={false}
-        time="11:34 PM"
-        status="read"
+    <ChatAlert
+        variant="blocked"
+        label="Bloqueaste este contacto"
     />
-    <Message
-        type="received"
-        text = "Simon, pero que te paso?"
-        consecutive={false}
-        time="11:34 PM"
-        status=""
-    />
-    <Message
-        type="sent"
-        text ="Mañana te cuento"
-        consecutive={false}
-        time="11:35 PM"
-        status="read"
-    />
-    <Message
-        type="sent"
-        text ="puedes a las 9?"
-        consecutive={true}
-        time="11:35 PM"
-        status="read"
-    />
-    <Message
-        type="received"
-        text ="Si, en donde?"
-        consecutive={false}
-        time="11:36 PM"
-        status=""
-    />
-    <Message
-        type="sent"
-        text ="Deja busco bien la ubicación del lugar, horita te la paso"
-        consecutive={false}
-        time="11:37 PM"
-        status="read"
-    />
-    <Message
-        type="sent"
-        text ="yastas, ahi nos vemos mañana"
-        consecutive={true}
-        time="11:37 PM"
-        status="read"
-    />
-    <Message
-        type="sent"
-        text ="al rato"
-        consecutive={true}
-        time="11:37 PM"
-        status="read"
-    />
-    <Message
-        type="received"
-        text ="Al rato"
-        consecutive={false}
-        time="11:38 PM"
-        status=""
-    />
+
 </ChatLayout>
 
 #### Al día siguente
-
-<ChatLayout>
-    <HeaderChat
-        title="Compa"
-        image="https://res.cloudinary.com/dx7uimym1/image/upload/v1733454281/CIOG/Blogs/La-conversacion/panas.webp"
-    />
-    <Message
-        type="sent"
-        text = "Ya voy para allá"
-        consecutive={false}
-        time="8:28 AM"
-        status="read"
-    />
-    <Message
-        type="received"
-        text = "Simon yo tambien"
-        consecutive={false}
-        time="8:30 AM"
-        status=""
-    />
-    <Message
-        type="sent"
-        text = "Ya llegue"
-        consecutive={false}
-        time="8:52 AM"
-        status="read"
-    />
-    <Message
-        type="received"
-        text = "Aqui ando"
-        consecutive={false}
-        time="9:02 AM"
-        status=""
-    />
-    <Message
-        type="received"
-        text = "donde estas?"
-        consecutive={true}
-        time="9:03 PM"
-        status=""
-    />
-    <Message
-        type="sent"
-        text = "Al fondo"
-        consecutive={true}
-        time="9:04 AM"
-        status="read"
-    />
-       <Message
-        type="received"
-        text = "Ya te vi"
-        consecutive={true}
-        time="9:04 AM"
-        status=""
-    />
-</ChatLayout>
-
-
-
-<WorkInProgressBanner 
-  client:load 
-/>
-
-
-{/* <br/>
-<br/>
-<br/>
-<br/>
-<br/> */}
-
-
-
-{/* <ChatLayout>
-    <HeaderChat
-        title="Rubí"
-        image="https://res.cloudinary.com/dx7uimym1/image/upload/v1733454281/CIOG/Blogs/La-conversacion/Rubi.webp"
-    />
-    <Message
-        type="received"
-        text = {`
-            Holiiii. Pensé que nos tocaría ir a jugar bolos de nuevo por el cumple de Vic, pero no fue así jejeje.
-            Soy Rubí.
-        `}
-        consecutive={false}
-        time="9:02 PM"
-        status=""
-    />
-</ChatLayout>
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-
-
-<ChatLayout>
-    <HeaderChat
-        title="Rubí"
-        image="https://res.cloudinary.com/dx7uimym1/image/upload/v1733454281/CIOG/Blogs/La-conversacion/Rubi.webp"
-    />
-    <Message
-        type="received"
-        text = {`
-            Holiiii. Pensé que nos tocaría ir a jugar bolos de nuevo por el cumple de Vic, pero no fue así jejeje.
-            Soy Rubí.
-        `}
-        consecutive={false}
-        time="9:02 PM"
-        status=""
-    />
-    <Message
-        type="sent"
-        text = "Hey!, hola Rubí"
-        consecutive={false}
-        time="9:43 PM"
-        status="received"
-    />
-    <Message
-        type="sent"
-        text = "Yo igual tenía en mente eso de que Vic quería organizar algo para su cumple"
-        consecutive={true}
-        time="9:45 PM"
-        status="received"
-    />
-    <Message
-        type="sent"
-        text = "Y en una chance le pregunté al Antonio y pues ya sabes que pasó..."
-        consecutive={true}
-        time="9:45 PM"
-        status="received"
-    />
-    <Message
-        type="sent"
-        text = "Y que hicieron?"
-        consecutive={true}
-        time="9:46 PM"
-        status="received"
-    />
-</ChatLayout>
-
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/> */}
-
-
 
 
 

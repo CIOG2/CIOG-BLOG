@@ -1,0 +1,230 @@
+.chat-audio{
+    --audio-accent: #53bdeb;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    min-width: 240px;
+}
+
+.chat-audio__button{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(233, 237, 239, 0.18);
+    color: #1f2c33;
+    cursor: pointer;
+    transition: transform 120ms ease-in-out, background-color 120ms ease-in-out, color 120ms ease-in-out;
+
+    &:hover{
+        transform: scale(1.06);
+        background-color: rgba(233, 237, 239, 0.26);
+    }
+
+    &:focus-visible{
+        outline: 2px solid rgba(83, 189, 235, 0.4);
+        outline-offset: 2px;
+    }
+}
+
+.chat-audio__button-icon{
+    display: inline-flex;
+}
+
+.chat-audio__button.is-playing{
+    color: #d1d7db;
+}
+
+.chat-audio__body{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+}
+
+.chat-audio__label{
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #111b21;
+    letter-spacing: 0.01em;
+}
+
+.chat-audio__waveform{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 48px;
+    padding: 8px 14px;
+    border-radius: 16px;
+    background-color: rgba(17, 27, 33, 0.08);
+    overflow: hidden;
+    cursor: pointer;
+
+    &.is-loading{
+        opacity: 0.66;
+        cursor: progress;
+    }
+
+    &.has-error{
+        background-color: rgba(198, 60, 60, 0.12);
+    }
+}
+
+.chat-audio__bars{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(48, minmax(2px, 1fr));
+    align-items: end;
+    gap: 3px;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.chat-audio__bar{
+    display: block;
+    width: 100%;
+    border-radius: 999px;
+    background: rgba(11, 27, 33, 0.35);
+    min-height: 6px;
+    transition: background-color 120ms linear, transform 120ms ease-in-out;
+
+    &.is-active{
+        background: var(--audio-accent);
+        transform: scaleY(1.08);
+    }
+}
+
+.chat-audio__progress{
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--audio-accent), rgba(0, 0, 0, 0));
+    opacity: 0.22;
+    pointer-events: none;
+
+    .chat-audio__progress-dot{
+        position: absolute;
+        top: 50%;
+        right: -6px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        transform: translateY(-50%);
+        background-color: var(--audio-accent);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+    }
+}
+
+.chat-audio__footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.chat-audio__time{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    font-family: inter, sans-serif;
+    color: #54656f;
+}
+
+.chat-audio__time-current,
+.chat-audio__time-duration,
+.chat-audio__message-time{
+    font-variant-numeric: tabular-nums;
+}
+
+.chat-audio__time-meta{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: #667781;
+}
+
+.chat-audio__status{
+    display: inline-flex;
+    color: #8696a0;
+
+    &--read{
+        color: var(--audio-accent);
+    }
+}
+
+.chat-audio__avatar{
+    position: relative;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+}
+
+.chat-audio__avatar-mic{
+    position: absolute;
+    right: -4px;
+    bottom: -2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--audio-accent);
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.dark {
+    .chat-audio__button{
+        background-color: rgba(17, 27, 33, 0.45);
+        color: #d1d7db;
+
+        &:hover{
+            background-color: rgba(17, 27, 33, 0.6);
+        }
+    }
+
+    .chat-audio__label{
+        color: #e9edef;
+    }
+
+    .chat-audio__waveform{
+        background-color: rgba(233, 237, 239, 0.08);
+    }
+
+    .chat-audio__bar{
+        background: rgba(233, 237, 239, 0.24);
+    }
+
+    .chat-audio__time{
+        color: #b0bac0;
+    }
+
+    .chat-audio__time-meta{
+        color: #d1d7db;
+    }
+
+    .chat-audio__progress{
+        background: linear-gradient(90deg, var(--audio-accent), rgba(0, 0, 0, 0));
+        opacity: 0.28;
+    }
+
+    .chat-audio__avatar-mic{
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+}

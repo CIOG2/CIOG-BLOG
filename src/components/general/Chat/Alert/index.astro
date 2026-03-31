@@ -1,0 +1,41 @@
+---
+import './styles.scss';
+
+const {
+    label,
+    variant = 'time', // time | blocked | info
+    showLines = true,
+} = Astro.props;
+
+const containerClasses = ['chat__alert', `chat__alert--${variant}`].filter(Boolean).join(' ');
+const hasCustomIconSlot = Astro.slots.has('icon');
+const showIcon = hasCustomIconSlot || ['time', 'blocked'].includes(variant);
+---
+
+<div class={containerClasses}>
+    {showLines &&
+        <span class="chat__alert--line" aria-hidden="true"></span>
+    }
+
+    <div class="chat__alert--bubble">
+        {showIcon &&
+            <span class="chat__alert--icon" aria-hidden="true">
+                {hasCustomIconSlot &&
+                    <slot name="icon" />
+                }
+                {!hasCustomIconSlot && variant === 'time' &&
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" role="presentation"><path d="M12 20.5A8.5 8.5 0 1 1 20.5 12 8.51 8.51 0 0 1 12 20.5Zm0-15A6.5 6.5 0 1 0 18.5 12 6.51 6.51 0 0 0 12 5.5Zm3.25 7H12a.75.75 0 0 1-.75-.75V8.5a.75.75 0 1 1 1.5 0v2.75h2.5a.75.75 0 0 1 0 1.5Z"/></svg>
+                }
+                {!hasCustomIconSlot && variant === 'blocked' &&
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" role="presentation"><path d="M12 20.5a8.5 8.5 0 1 1 8.5-8.5 8.51 8.51 0 0 1-8.5 8.5Zm0-15A6.5 6.5 0 1 0 18.5 12 6.51 6.51 0 0 0 12 5.5Zm0 9.25A.75.75 0 0 1 11.25 14v-3.5a.75.75 0 0 1 1.5 0V14A.75.75 0 0 1 12 14.75Zm0-5.5a1 1 0 1 1 1-1 1 1 0 0 1-1 1Z"/></svg>
+                }
+            </span>
+        }
+
+        <span class="chat__alert--label">{label}</span>
+    </div>
+
+    {showLines &&
+        <span class="chat__alert--line" aria-hidden="true"></span>
+    }
+</div>
