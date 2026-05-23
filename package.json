@@ -24,6 +24,7 @@
     "astro-icon": "^1.1.5",
     "preact": "^10.25.4",
     "sass": "^1.83.1",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
