@@ -7,14 +7,7 @@ export default {
     postsPerPage: 6,
     url: "https://ciog.dev/",
     social: {
-        'dribbble': false,
-        'facebook': false,
-        'github': false,
         'instagram': 'https://www.instagram.com/ciog.dev/',
-        'mastodon': false,
-        'pinterest': false,
-        'skype': false,
-        'twitter': false,
         'tiktok': 'https://www.tiktok.com/@ciog.dev',
     }
 }
