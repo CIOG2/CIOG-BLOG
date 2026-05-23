@@ -1,5 +1,5 @@
 ---
-const { postData, num } = Astro.props;
+const { postData, num, transition = true } = Astro.props;
 import { Image } from 'astro:assets'
 import PublishDate from "./PublishDate.astro";
 import Tag from "../general/Tag.astro";
@@ -28,7 +28,7 @@ const isOdd = num % 2;
                     width="750" 
                     alt={ postData.data.title + "Thumbnail"} 
                     class:list={[ 'rounded-[15px] image-shine object-cover h-[200px]', { "rotate-2": isOdd, "-rotate-2": !isOdd } ]}   
-                    style=`view-transition-name: post-image-${postData.data.title.split(" ").join("-").toLocaleLowerCase()}` 
+                    style={transition ? `view-transition-name: post-image-${postData.data.title.split(" ").join("-").toLocaleLowerCase()}` : undefined} 
                 />
             </a>
         </div>

@@ -61,11 +61,10 @@ const author = await getEntry(entry.data.author);
         src={entry.data.image} 
         alt={entry.data.title} 
         width="1200" 
-        height="250" 
+        height="630" 
         loading="eager" 
         decoding="sync" 
-        class="block relative mx-auto mt-10 object-contain h-72 md:h-[500px] md:w-[500px] image-shine rounded-[15px]" 
-        loading="eager" 
+        class="block relative mx-auto mt-10 w-full max-w-lg aspect-square object-cover image-shine rounded-[15px]" 
         style=`view-transition-name: post-image-${entry.data.title.split(" ").join("-").toLocaleLowerCase()}` 
       />
     }
@@ -117,13 +116,13 @@ const author = await getEntry(entry.data.author);
 <script>
   document.addEventListener('click', async (event) => {
     // Verifica si el elemento clicado es un botón con la clase 'shareButton'
-    if (event.target && event.target.classList.contains('shareButton')) {
+    if (event.target instanceof HTMLElement && event.target.classList.contains('shareButton')) {
       event.preventDefault(); // Evita cualquier comportamiento predeterminado
       if (navigator.share) {
         try {
           await navigator.share({
             title: document.title,
-            text: document.getElementById('title-blog').textContent,
+            text: document.getElementById('title-blog')?.textContent ?? document.title,
             url: window.location.href, // Usa la URL actual
           });
         } catch (error) {
