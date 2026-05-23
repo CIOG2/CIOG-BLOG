@@ -1,9 +1,10 @@
 import { defineConfig } from 'astro/config';
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
 import preact from "@astrojs/preact";
+import icon from "astro-icon";
 
 const site = "https://ciog.dev";
 
@@ -20,7 +21,10 @@ const getPagePriority = (url) => {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), mdx(), sitemap({
+  vite: {
+    plugins: [tailwindcss()],
+  },
+  integrations: [icon(), mdx(), sitemap({
     serialize(item) {
       item.priority = getPagePriority(item.url);
       item.lastmod = new Date();

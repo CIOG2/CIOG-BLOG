@@ -3,20 +3,20 @@ import { Image } from 'astro:assets'
 
 import Base from "../layouts/Base.astro";
 
-import { getCollection, getEntry } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 
 export async function getStaticPaths() {
   const pageEntries = await getCollection("page");
 
   return pageEntries.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 const { entry } = Astro.props;
 entry.data.type = "blog";
 
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <Base postData={entry}>

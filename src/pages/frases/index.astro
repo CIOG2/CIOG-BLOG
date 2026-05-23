@@ -44,7 +44,7 @@ const frases = await getCollection("frases");
         const random = frases[randomIndex];
 
         // Redirige a la ruta dinámica del post
-        window.location.href = `/frases/${random.slug}`;
+        window.location.href = `/frases/${random.id}`;
       });
     </script>
   </head>

@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import SeoHead from "../components/general/SeoHead.astro"
 import Header from "../components/general/Header.astro"
 import Footer from "../components/general/Footer.astro"
@@ -47,7 +47,7 @@ const isDev = url.includes('localhost');
     <link rel="preload" href="/fonts/space-grotesk-v15-latin_latin-ext-700.woff2" as="font" crossorigin>
 
 
-    <ViewTransitions />
+    <ClientRouter />
     <!-- favicon -->
     <link rel="icon" href="https://res.cloudinary.com/dx7uimym1/image/upload/v1721085107/CIOG/Favicon.png" />
     <!-- si es dev -->

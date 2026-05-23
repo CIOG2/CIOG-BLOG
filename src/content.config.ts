@@ -1,8 +1,8 @@
 import { defineCollection, reference, z } from 'astro:content';
-import { boolean } from 'astro:schema';
+import { glob } from 'astro/loaders';
 
 const blogCollection = defineCollection({
-    type: 'content', // v2.5.0 and later
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
     schema: ({image}) => z.object({
         title: z.string(),
         intro: z.string(),
@@ -17,7 +17,7 @@ const blogCollection = defineCollection({
 });
 
 const pageCollection = defineCollection({
-    type: 'content', // v2.5.0 and later
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/page" }),
     schema: ({image}) => z.object({
         title: z.string(),
         intro: z.string(),
@@ -30,7 +30,7 @@ const pageCollection = defineCollection({
 });
 
 const authorCollection = defineCollection({
-    type: 'data', // v2.5.0 and later
+    loader: glob({ pattern: "**/*.{json,yaml,yml}", base: "./src/content/author" }),
     schema: ({image}) => z.object({
         displayName: z.string(),
         bio: z.string().optional(),
@@ -39,7 +39,7 @@ const authorCollection = defineCollection({
 });
 
 const frasesCollection = defineCollection({
-    type: 'content', // v2.5.0 and later
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/frases" }),
     schema: ({image}) => z.object({
         title: z.string(),
         intro: z.string(),
@@ -52,9 +52,6 @@ const frasesCollection = defineCollection({
         authorSEO: z.string().optional(),
     }),
 });
-
-
-
 
 export const collections = {
     'blog': blogCollection,

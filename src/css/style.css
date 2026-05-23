@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@config "../../tailwind.config.cjs";
+
 ::view-transition-old(post-image),
 ::view-transition-new(post-image) {
   animation: fade-in 0.5s ease-in-out;

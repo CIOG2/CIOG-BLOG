@@ -4,20 +4,20 @@ import AuthorInfo from '../../components/blog/AuthorInfo.astro';
 import LatestPosts from '../../components/blog/LatestPosts.astro';
 import PublishDate from '../../components/blog/PublishDate.astro';
 import Tag from '../../components/general/Tag.astro';
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('frases');
 
   return blogEntries.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
 entry.data.type = 'frases';
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 const author = entry.data.author?.id && entry.data.author?.collection
   ? await getEntry(entry.data.author)
   : null;

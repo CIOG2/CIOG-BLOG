@@ -14,7 +14,7 @@ export async function get(context) {
             description: post.data.intro,
             keywords: post.data.keywords,
             authorSEO: post.data.authorSEO,
-            link: `/blog/${post.slug}/`,
+            link: `/blog/${post.id}/`,
         })),
         customData: `<language>es-mx</language>`,
     });
