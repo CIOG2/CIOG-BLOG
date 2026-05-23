@@ -3,7 +3,6 @@ import { ClientRouter } from 'astro:transitions';
 import SeoHead from "../components/general/SeoHead.astro"
 import Header from "../components/general/Header.astro"
 import Footer from "../components/general/Footer.astro"
-import Analytics from '@vercel/analytics/astro'
 
 import '../css/style.css';
 
@@ -64,7 +63,6 @@ const isDev = url.includes('localhost');
     
 
     {!isDev && 
-        // <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-G3DH2S12MJ"></script>
         <script is:inline>
             window.dataLayer = window.dataLayer || [];
@@ -73,7 +71,6 @@ const isDev = url.includes('localhost');
 
             gtag('config', 'G-G3DH2S12MJ');
         </script>
-        <Analytics/>
     }
 
 </head>
