@@ -2,8 +2,10 @@
     position: relative;
     width: 100%;
     height: auto;
+    min-height: 100%;
+    flex-grow: 1;
     padding-bottom: 16px;
-    margin: 8px 0px 24px 0px;
+    margin: 0px; /* Removed vertical margins to prevent it from escaping the flex container poorly */
     background-color: #cbdaec;
 
     img {
@@ -17,6 +19,7 @@
     height: 100%;
     background-image: url('https://static.whatsapp.net/rsrc.php/v3/yl/r/gi_DckOUM5a.png');
     background-size: 400px;
+    background-attachment: fixed;
     top: 0;
     left: 0;
     opacity: 0.7;

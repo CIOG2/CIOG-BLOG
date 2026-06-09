@@ -13,6 +13,7 @@ import CardMusic from '../../components/general/CardMusic/index.astro'
 import ChatLayout from '../../components/general/Chat/Layout/index.astro'
 import Message from '../../components/general/Chat/Message/index.astro'
 import HeaderChat from '../../components/general/Chat/Header/index.astro'
+import ChatModal from '../../components/general/Chat/ChatModal/index.astro'
 import ChatAlert from '../../components/general/Chat/Alert/index.astro'
 import stickerAstronauta from '../../assets/Astronauta.webp'
 import avatarCiog from '../../assets/ciog.jpg'
@@ -20,103 +21,151 @@ import { WorkInProgressBanner } from '../../components/general/WorkInProgressBan
 
 
 
-### Recomendación para escuchar mientras lees
-<CardMusic
-    image="https://res.cloudinary.com/dx7uimym1/image/upload/v1726244924/CIOG/Music/Banners/Dream.jpg"
-    nameSound="Dream"
-    nameArtist="Hemio"
-    audioSrc="https://res.cloudinary.com/dx7uimym1/video/upload/v1726244736/CIOG/Music/dream.mp3"
-/>
-<hr/>
 
+<ChatModal>
 <ChatLayout>
     <HeaderChat
         title="+52 667 430 3666"
-        image=""
+        image={avatarCiog.src}
+        showBackButton={true}
     />
     <Message
         type="received"
-        text = "Hola"
+        text="Hola"
         consecutive={false}
         time="11:11 p. m."
         status=""
     />
     <Message
         type="sent"
-        text = "Hola?"
+        text="¿Quién eres?"
+        consecutive={false}
+        time="11:15 p. m."
+        status="read"
+    />
+    <Message
+        type="received"
+        text="Encontré este número en mis contactos y no recuerdo de quién es."
+        consecutive={false}
+        time="11:16 p. m."
+        status=""
+    />
+    <Message
+        type="sent"
+        text="Creo que te has equivocado de número."
+        consecutive={false}
+        time="11:18 p. m."
+        status="read"
+    />
+    <Message
+        type="received"
+        text="Tal vez... ¿cómo te llamas?"
+        consecutive={false}
+        time="11:20 p. m."
+        status=""
+    />
+    <Message
+        type="sent"
+        text="No le doy mi nombre a extraños por WhatsApp."
+        consecutive={false}
+        time="11:21 p. m."
+        status="read"
+    />
+    <Message
+        type="received"
+        text="Haces bien. Pero tu foto de perfil me resulta muy familiar."
+        consecutive={false}
+        time="11:22 p. m."
+        status=""
+    />
+    <Message
+        type="sent"
+        text="No tengo foto de perfil pública."
+        consecutive={false}
+        time="11:23 p. m."
+        status="read"
+    />
+    <Message
+        type="received"
+        text="Tienes una donde estás frente a un espejo, con una camisa oscura."
+        consecutive={false}
+        time="11:24 p. m."
+        status=""
+    />
+    <Message
+        type="sent"
+        text="¿Cómo puedes ver eso? Mi privacidad está configurada."
+        consecutive={false}
+        time="11:25 p. m."
+        status="read"
+    />
+    <Message
+        type="received"
+        text="Las cosas nunca son tan privadas como uno cree, Iván."
+        consecutive={false}
+        time="11:26 p. m."
+        status=""
+    />
+    <Message
+        type="sent"
+        text="¿Quién diablos eres? ¿Es una broma de Juan?"
+        consecutive={false}
+        time="11:27 p. m."
+        status="read"
+    />
+    <Message
+        type="received"
+        text="No soy Juan. Y sé que estás solo en casa."
         consecutive={false}
         time="11:28 p. m."
-        status="read"
+        status=""
     />
     <Message
-        type="received"
-        contentType="sticker"
-        stickerSrc="https://media.tenor.com/lc7-28XVv94AAAAM/grand-m-belimba.gif"
-        stickerAlt="Meme"
+        type="sent"
+        text="Voy a bloquear este número en este instante."
         consecutive={false}
         time="11:29 p. m."
-        status=""
+        status="read"
     />
     <Message
-        type="sent"
-        contentType="sticker"
-        stickerSrc="https://media.tenor.com/lc7-28XVv94AAAAM/grand-m-belimba.gif"
-        stickerAlt="Meme respondido"
+        type="received"
+        text="Puedes hacerlo. Pero eso no evitará que siga viéndote."
         consecutive={false}
         time="11:30 p. m."
-        status="read"
+        status=""
+    />
+    <Message
+        type="received"
+        text="Desde la ventana."
+        consecutive={true}
+        time="11:30 p. m."
+        status=""
     />
     <Message
         type="sent"
-        contentType="audio"
-        audioSrc="https://res.cloudinary.com/dx7uimym1/video/upload/v1726244736/CIOG/Music/dream.mp3"
-        audioLabel="Nota de voz"
-        audioDuration="0:12"
-        audioAvatarSrc={avatarCiog.src}
-        audioAvatarAlt="CIoG"
-        audioAccentColor="#1fa3f7"
+        text="Estoy en un cuarto piso. No hay ningún balcón frente al mío."
+        consecutive={false}
+        time="11:31 p. m."
+        status="read"
+    />
+    <Message
+        type="received"
+        text="Lo sé."
         consecutive={false}
         time="11:32 p. m."
-        status="read"
+        status=""
+        interactive={true}
     />
     <Message
         type="received"
-        contentType="audio"
-        audioSrc="https://res.cloudinary.com/dx7uimym1/video/upload/v1726244736/CIOG/Music/dream.mp3"
-        audioDuration="0:15"
-        audioAvatarSrc="https://avatars.githubusercontent.com/u/1?v=4"
-        audioAvatarAlt="Desconocido"
-        audioAccentColor="#53bdeb"
-        consecutive={false}
-        time="11:35 p. m."
+        text="No estoy afuera."
+        consecutive={true}
+        time="11:32 p. m."
         status=""
+        interactive={true}
     />
-    <ChatAlert
-        variant="time"
-        label="Hoy, 8:10 a. m."
-    />
-    <Message
-        type="received"
-        text = "Acabo de despertar, hablamos luego."
-        consecutive={false}
-        time="8:10 a. m."
-        status=""
-    />
-    <Message
-        type="sent"
-        contentType="image"
-        imageSrc="https://res.cloudinary.com/dx7uimym1/image/upload/v1720811866/CIOG/Cohete%20despegando.webp"
-        imageAlt="Cohete despegando"
-        consecutive={false}
-        time="8:12 a. m."
-        status="read"
-    />
-    <ChatAlert
-        variant="blocked"
-        label="Bloqueaste este contacto"
-    />
-
 </ChatLayout>
+</ChatModal>
 
 #### Al día siguiente
 

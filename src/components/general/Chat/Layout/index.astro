@@ -1,8 +1,10 @@
 ---
     import './styles.scss';
+    import TypingIndicator from '../TypingIndicator/index.astro';
 ---
 
 <section class="chat__layout">
     <div class="chat__layout--banner"></div>
     <slot></slot>
+    <TypingIndicator />
 </section>

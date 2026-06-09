@@ -25,7 +25,7 @@
     align-items: stretch;
     gap: 6px;
     width: auto;
-    max-width: 600px;
+    max-width: 80%;
     padding: 8px 8px 8px 10px;
 }
 
@@ -38,11 +38,37 @@
     align-self: flex-end;
 }
 
-.chat__message--text {
+p.chat__message--text {
     color: #111b21;
-    margin: 0px;
-    line-height: 130%;
-    font-size: 1rem;
+    margin: 0px !important;
+    line-height: 1.1 !important; /* Reduced line-height for multi-line text */
+    font-size: 1rem !important;
+}
+
+.chat__message--spacer {
+    display: inline-block;
+    height: 1px;
+}
+
+.chat__message--container-received .chat__message--spacer {
+    width: 60px;
+}
+
+.chat__message--container-sent .chat__message--spacer {
+    width: 80px; /* Accounts for time and checkmarks */
+}
+
+.chat__message--has-text {
+    display: block; 
+    padding: 9px 8px 9px 10px; /* Reduced 1px top and bottom as requested */
+    
+    .chat__message--elements-container {
+        position: absolute;
+        bottom: 6px; /* Moved up by 4px */
+        right: 8px;  /* Moved left by 4px */
+        display: inline-flex;
+        margin: 0;
+    }
 }
 
 .chat__message--time {

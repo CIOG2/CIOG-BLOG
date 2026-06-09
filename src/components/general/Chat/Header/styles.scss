@@ -37,4 +37,19 @@
         background-color: #202c33;
         box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.4);
     }
+    .chat__header--back-btn {
+        color: #aebac1;
+    }
+}
+
+.chat__header--back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #54656f;
+    padding: 0;
+    margin-right: 4px;
 }

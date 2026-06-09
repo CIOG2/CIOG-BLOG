@@ -21,13 +21,15 @@ const {
     stickerAlt = 'Sticker', // Sticker alternative text
     imageSrc, // Source for image messages
     imageAlt = 'Foto', // Image title or alt text
+    interactive = false, // If the message should be animated with GSAP
 } = Astro.props;
 
 const class1 = `chat__message--container-${ type }`;
 const class2 = consecutive ? 'chat__message--container-consecutive' : '';
 const class3 = (contentType === 'sticker') ? 'chat__message--container-is-sticker' : '';
+const class4 = interactive ? 'chat__message--interactive' : '';
 const classStatus = status ? `chat__message--status-${ status }` : '';
-const containerClasses = ['chat__message--container', class1, class2, class3].filter(Boolean).join(' ');
+const containerClasses = ['chat__message--container', class1, class2, class3, class4].filter(Boolean).join(' ');
 const statusClasses = ['chat__message--status', classStatus].filter(Boolean).join(' ');
 
 const isAudioMessage = contentType === 'audio' && audioSrc;
@@ -36,10 +38,12 @@ const isImageMessage = contentType === 'image' && imageSrc;
 const hasText = typeof text === 'string' && text.trim().length > 0;
 const hasStatus = ['sent', 'received', 'read'].includes(status);
 const showMetadata = !isAudioMessage && Boolean(time || hasStatus);
+
+const interactiveStyles = interactive ? "opacity: 0; display: none; transform: translateY(10px);" : "";
 ---
 
-<div class={containerClasses}>
-    <div class="chat__message">
+<div class={containerClasses} data-interactive={interactive ? "true" : undefined} data-type={type} style={interactiveStyles}>
+    <div class={`chat__message ${hasText ? 'chat__message--has-text' : ''}`}>
 
         {!consecutive && !isStickerMessage &&
             <div class="chat__message--arrow">
@@ -85,6 +89,7 @@ const showMetadata = !isAudioMessage && Boolean(time || hasStatus);
         {hasText &&
             <p class="chat__message--text">
                 { text }
+                <span class="chat__message--spacer"></span>
             </p>
         }
 

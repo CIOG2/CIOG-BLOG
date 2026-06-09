@@ -1,0 +1,47 @@
+.chat__typing-indicator {
+    padding: 0 14px;
+    margin-bottom: 12px;
+    width: fit-content;
+    &--bubble {
+        background-color: #fff;
+        padding: 12px 16px;
+        border-radius: 0 12px 12px 12px;
+        box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &--dot {
+        width: 6px;
+        height: 6px;
+        background-color: #8b9eb0;
+        border-radius: 50%;
+        animation: chatTyping 1.4s infinite ease-in-out both;
+
+        &:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+        &:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+    }
+}
+
+.dark {
+    .chat__typing-indicator--bubble {
+        background-color: #202c33;
+        box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.4);
+    }
+}
+
+@keyframes chatTyping {
+    0%, 80%, 100% { 
+        transform: scale(0);
+        opacity: 0.5;
+    } 
+    40% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+}

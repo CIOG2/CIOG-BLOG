@@ -1,0 +1,96 @@
+---
+import './styles.scss';
+---
+
+<div class="chat-modal-wrapper">
+    <div class="chat-modal-intro">
+        <p>Esta es una historia inmersiva. Para vivir la experiencia completa, haz clic en el botón de abajo.</p>
+        <button class="open-chat-btn">Abrir chat</button>
+    </div>
+
+    <dialog class="chat-dialog">
+        <div class="chat-dialog-content not-prose">
+            <slot />
+        </div>
+    </dialog>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+
+    document.querySelectorAll('.chat-modal-wrapper').forEach(wrapper => {
+        const openBtn = wrapper.querySelector('.open-chat-btn');
+        const dialog = wrapper.querySelector('.chat-dialog');
+        const typingIndicator = wrapper.querySelector('#chat-typing-indicator');
+        const interactiveMessages = wrapper.querySelectorAll('.chat__message--interactive');
+        const scrollContainer = wrapper.querySelector('.chat-dialog-content');
+
+        let animationTimeline = null;
+        
+        openBtn?.addEventListener('click', () => {
+            if (dialog) {
+                // @ts-ignore
+                dialog.showModal();
+                document.body.style.overflow = 'hidden';
+
+                if (!animationTimeline && interactiveMessages.length > 0) {
+                    animationTimeline = gsap.timeline();
+                    
+                    interactiveMessages.forEach((msg) => {
+                        const type = msg.getAttribute('data-type');
+                        const isReceived = type === 'received';
+                        
+                        if (isReceived && typingIndicator) {
+                            animationTimeline.call(() => {
+                                // Move indicator just before the message
+                                msg.parentNode.insertBefore(typingIndicator, msg);
+                                typingIndicator.style.display = 'block';
+                                gsap.to(typingIndicator, { opacity: 1, y: 0, duration: 0.3 });
+                                if (scrollContainer) scrollContainer.scrollTop = scrollContainer.scrollHeight;
+                            });
+                            
+                            animationTimeline.to({}, { duration: 1.8 });
+                            
+                            animationTimeline.to(typingIndicator, { opacity: 0, y: 10, duration: 0.2 });
+                            animationTimeline.call(() => {
+                                typingIndicator.style.display = 'none';
+                            });
+                        } else {
+                            // If it's a 'sent' message, maybe just a tiny delay without typing indicator
+                            animationTimeline.to({}, { duration: 0.5 });
+                        }
+                        
+                        animationTimeline.call(() => {
+                            // @ts-ignore
+                            msg.style.display = 'flex';
+                        });
+                        animationTimeline.to(msg, { 
+                            opacity: 1, 
+                            y: 0, 
+                            duration: 0.4, 
+                            ease: "power2.out",
+                            onStart: () => {
+                                if (scrollContainer) scrollContainer.scrollTop = scrollContainer.scrollHeight;
+                            }
+                        });
+                    });
+                }
+            }
+        });
+
+        wrapper.addEventListener('click', (e) => {
+            const target = e.target as HTMLElement;
+            if (target.closest('.chat__header--back-btn')) {
+                if (dialog) {
+                    // @ts-ignore
+                    dialog.close();
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+
+        dialog?.addEventListener('close', () => {
+            document.body.style.overflow = '';
+        });
+    });
+</script>
