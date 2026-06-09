@@ -25,9 +25,10 @@ const isOdd = num % 2;
             <a href={`${Astro.url.origin}/blog/${postData.id}`}>
                 <Image 
                     src={postData?.data?.image ? postData.data.image : defaultImage} 
-                    width="750" 
+                    width="800"
+                    height="800"
                     alt={ postData.data.title + "Thumbnail"} 
-                    class:list={[ 'rounded-[15px] image-shine object-cover h-[200px]', { "rotate-2": isOdd, "-rotate-2": !isOdd } ]}   
+                    class:list={[ 'rounded-[15px] image-shine object-contain w-[200px] h-[200px]', { "rotate-2": isOdd, "-rotate-2": !isOdd } ]}   
                     style={transition ? `view-transition-name: post-image-${postData.data.title.split(" ").join("-").toLocaleLowerCase()}` : undefined} 
                 />
             </a>

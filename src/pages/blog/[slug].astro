@@ -60,11 +60,11 @@ const author = await getEntry(entry.data.author);
       <Image 
         src={entry.data.image} 
         alt={entry.data.title} 
-        width="1200" 
-        height="630" 
+        width="800" 
+        height="800" 
         loading="eager" 
         decoding="sync" 
-        class="block relative mx-auto mt-10 w-full max-w-lg aspect-square object-cover image-shine rounded-[15px]" 
+        class="block relative mx-auto mt-10 w-full max-w-lg aspect-square object-contain image-shine rounded-[15px]" 
         style=`view-transition-name: post-image-${entry.data.title.split(" ").join("-").toLocaleLowerCase()}` 
       />
     }
