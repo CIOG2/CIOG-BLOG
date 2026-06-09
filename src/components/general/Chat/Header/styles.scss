@@ -1,6 +1,7 @@
 .chat__header{
-    position: sticky;
-    top: -1px;
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
