@@ -32,6 +32,9 @@ import './styles.scss';
                 // @ts-ignore
                 dialog.showModal();
                 document.body.style.overflow = 'hidden';
+                if (scrollContainer) {
+                    scrollContainer.scrollTop = 0;
+                }
 
                 if (!animationTimeline && interactiveMessages.length > 0) {
                     animationTimeline = gsap.timeline();

@@ -1,0 +1,200 @@
+/* ─── Chat CTA ────────────────────────────────────────── */
+
+.chat__cta {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 16px 28px;
+    margin-top: 12px;
+}
+
+/* Divider label ── like WhatsApp date separators */
+.chat__cta--divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+
+    &::before,
+    &::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: rgba(0, 0, 0, 0.15);
+    }
+
+    span {
+        white-space: nowrap;
+        font-size: 12px;
+        font-weight: 500;
+        color: #667781;
+        background: #d1dbe6;
+        padding: 4px 12px;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Card ── floats like a system message */
+.chat__cta--card {
+    width: 100%;
+    max-width: 340px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.chat__cta--card-header {
+    background: linear-gradient(135deg, #00a884 0%, #007a6e 100%);
+    padding: 16px 20px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .chat__cta--avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    .chat__cta--header-text {
+        h4 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        p {
+            margin: 2px 0 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    }
+}
+
+.chat__cta--body {
+    padding: 14px 20px 4px;
+
+    p {
+        margin: 0 0 14px;
+        font-size: 14px;
+        color: #3b4a54;
+        line-height: 1.5;
+    }
+}
+
+/* Action buttons */
+.chat__cta--actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.chat__cta--btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: #00a884;
+    text-decoration: none;
+    transition: background 0.15s ease;
+    width: 100%;
+    text-align: left;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:hover {
+        background: rgba(0, 168, 132, 0.06);
+    }
+
+    &:active {
+        background: rgba(0, 168, 132, 0.12);
+    }
+
+    svg {
+        flex-shrink: 0;
+        color: #00a884;
+    }
+
+    span {
+        flex: 1;
+    }
+}
+
+/* Share button special style */
+.chat__cta--btn-share {
+    color: #667781;
+
+    svg {
+        color: #8696a0;
+    }
+
+    &:hover {
+        background: rgba(102, 119, 129, 0.06);
+    }
+}
+
+/* ─── Dark mode ─────────────────────────────────────────── */
+.dark {
+    .chat__cta--divider {
+        &::before,
+        &::after {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        span {
+            color: #8696a0;
+            background: #182229;
+        }
+    }
+
+    .chat__cta--card {
+        background: #202c33;
+        border-color: rgba(255, 255, 255, 0.06);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .chat__cta--body p {
+        color: #aebac1;
+    }
+
+    .chat__cta--actions {
+        border-top-color: rgba(255, 255, 255, 0.07);
+    }
+
+    .chat__cta--btn {
+        border-bottom-color: rgba(255, 255, 255, 0.05);
+
+        &:hover {
+            background: rgba(0, 168, 132, 0.08);
+        }
+    }
+
+    .chat__cta--btn-share {
+        color: #8696a0;
+
+        &:hover {
+            background: rgba(134, 150, 160, 0.08);
+        }
+    }
+}

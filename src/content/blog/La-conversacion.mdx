@@ -2,177 +2,577 @@
 title: El chat
 pubDate: 2024-12-16
 intro: Un cuento contado en mensajes.
-tag: cuento
+tag: historia
 author: ciog
 image: ../../assets/La-conversacion.png
 keywords: hallowen, cuento, ciog, carlos ivan, ivan ochoa, carlos ivan ochoa gomez, ciog.dev
 authorSEO: ciog, carlos ivan, ivan ochoa, carlos ivan ochoa gomez, ciog.dev
 ---
-import { Image } from 'astro:assets'
-import CardMusic from '../../components/general/CardMusic/index.astro'
-import ChatLayout from '../../components/general/Chat/Layout/index.astro'
-import Message from '../../components/general/Chat/Message/index.astro'
-import HeaderChat from '../../components/general/Chat/Header/index.astro'
-import ChatModal from '../../components/general/Chat/ChatModal/index.astro'
-import ChatAlert from '../../components/general/Chat/Alert/index.astro'
-import stickerAstronauta from '../../assets/Astronauta.webp'
-import avatarCiog from '../../assets/ciog.jpg'
-import { WorkInProgressBanner } from '../../components/general/WorkInProgressBanner';
 
-
-
+import { Image } from "astro:assets";
+import CardMusic from "../../components/general/CardMusic/index.astro";
+import ChatLayout from "../../components/general/Chat/Layout/index.astro";
+import Message from "../../components/general/Chat/Message/index.astro";
+import HeaderChat from "../../components/general/Chat/Header/index.astro";
+import ChatModal from "../../components/general/Chat/ChatModal/index.astro";
+import ChatAlert from "../../components/general/Chat/Alert/index.astro";
+import ChatCTA from "../../components/general/Chat/CTA/index.astro";
+import stickerAstronauta from "../../assets/Astronauta.webp";
+import avatarCiog from "../../assets/ciog.jpg";
+import { WorkInProgressBanner } from "../../components/general/WorkInProgressBanner";
 
 <ChatModal>
-<ChatLayout>
+  <ChatLayout>
     <HeaderChat
-        title="+52 667 430 3666"
-        image={avatarCiog.src}
-        showBackButton={true}
+      title="+52 667 430 3666"
+      image={avatarCiog.src}
+      showBackButton={true}
     />
     <Message
-        type="received"
-        text="Hola"
-        consecutive={false}
-        time="11:11 p. m."
-        status=""
+      type="received"
+      text="Hola"
+      consecutive={false}
+      time="11:11 p. m."
+      status=""
     />
     <Message
-        type="sent"
-        text="¿Quién eres?"
-        consecutive={false}
-        time="11:15 p. m."
-        status="read"
+      type="sent"
+      contentType="sticker"
+      stickerSrc="https://i.pinimg.com/originals/2d/89/98/2d899895e8994f36fd5e43a3a3a56edf.gif"
+      stickerAlt="Sticker Gracioso"
+      consecutive={false}
+      time="11:14 p. m."
+      status="read"
     />
     <Message
-        type="received"
-        text="Encontré este número en mis contactos y no recuerdo de quién es."
-        consecutive={false}
-        time="11:16 p. m."
-        status=""
+      type="sent"
+      text="¿Quién eres?"
+      consecutive={true}
+      time="11:15 p. m."
+      status="read"
     />
     <Message
-        type="sent"
-        text="Creo que te has equivocado de número."
-        consecutive={false}
-        time="11:18 p. m."
-        status="read"
+      type="received"
+      text="Encontré este número en mis contactos"
+      consecutive={false}
+      time="11:16 p. m."
+      status=""
     />
     <Message
-        type="received"
-        text="Tal vez... ¿cómo te llamas?"
-        consecutive={false}
-        time="11:20 p. m."
-        status=""
+      type="received"
+      text="y la verdad no recuerdo de quién es."
+      consecutive={true}
+      time="11:16 p. m."
+      status=""
     />
     <Message
-        type="sent"
-        text="No le doy mi nombre a extraños por WhatsApp."
-        consecutive={false}
-        time="11:21 p. m."
-        status="read"
+      type="sent"
+      text="Creo que te has equivocado de número."
+      consecutive={false}
+      time="11:18 p. m."
+      status="read"
     />
     <Message
-        type="received"
-        text="Haces bien. Pero tu foto de perfil me resulta muy familiar."
-        consecutive={false}
-        time="11:22 p. m."
-        status=""
+      type="received"
+      text="Tal vez..."
+      consecutive={false}
+      time="11:20 p. m."
+      status=""
     />
     <Message
-        type="sent"
-        text="No tengo foto de perfil pública."
-        consecutive={false}
-        time="11:23 p. m."
-        status="read"
+      type="received"
+      text="¿cómo te llamas?"
+      consecutive={true}
+      time="11:20 p. m."
+      status=""
     />
     <Message
-        type="received"
-        text="Tienes una donde estás frente a un espejo, con una camisa oscura."
-        consecutive={false}
-        time="11:24 p. m."
-        status=""
+      type="sent"
+      text="No le doy mi nombre a extraños por WhatsApp."
+      consecutive={false}
+      time="11:21 p. m."
+      status="read"
     />
     <Message
-        type="sent"
-        text="¿Cómo puedes ver eso? Mi privacidad está configurada."
-        consecutive={false}
-        time="11:25 p. m."
-        status="read"
+      type="received"
+      text="Haces bien."
+      consecutive={false}
+      time="11:22 p. m."
+      status=""
     />
     <Message
-        type="received"
-        text="Las cosas nunca son tan privadas como uno cree, Iván."
-        consecutive={false}
-        time="11:26 p. m."
-        status=""
+      type="received"
+      text="Pero tu foto de perfil me resulta muy familiar."
+      consecutive={true}
+      time="11:22 p. m."
+      status=""
     />
     <Message
-        type="sent"
-        text="¿Quién diablos eres? ¿Es una broma de Juan?"
-        consecutive={false}
-        time="11:27 p. m."
-        status="read"
+      type="sent"
+      text="No tengo foto de perfil pública."
+      consecutive={false}
+      time="11:23 p. m."
+      status="read"
     />
     <Message
-        type="received"
-        text="No soy Juan. Y sé que estás solo en casa."
-        consecutive={false}
-        time="11:28 p. m."
-        status=""
+      type="received"
+      text="Tienes una donde estás frente a un espejo"
+      consecutive={false}
+      time="11:24 p. m."
+      status=""
     />
     <Message
-        type="sent"
-        text="Voy a bloquear este número en este instante."
-        consecutive={false}
-        time="11:29 p. m."
-        status="read"
+      type="received"
+      text="con una camisa oscura."
+      consecutive={true}
+      time="11:24 p. m."
+      status=""
     />
     <Message
-        type="received"
-        text="Puedes hacerlo. Pero eso no evitará que siga viéndote."
-        consecutive={false}
-        time="11:30 p. m."
-        status=""
+      type="received"
+      contentType="image"
+      imageSrc={avatarCiog.src}
+      imageAlt="Foto perfil"
+      consecutive={true}
+      time="11:24 p. m."
+      status=""
     />
     <Message
-        type="received"
-        text="Desde la ventana."
-        consecutive={true}
-        time="11:30 p. m."
-        status=""
+      type="sent"
+      text="¿Cómo puedes ver eso?"
+      consecutive={false}
+      time="11:25 p. m."
+      status="read"
     />
     <Message
-        type="sent"
-        text="Estoy en un cuarto piso. No hay ningún balcón frente al mío."
-        consecutive={false}
-        time="11:31 p. m."
-        status="read"
+      type="sent"
+      text="Mi privacidad está configurada."
+      consecutive={true}
+      time="11:25 p. m."
+      status="read"
     />
     <Message
-        type="received"
-        text="Lo sé."
-        consecutive={false}
-        time="11:32 p. m."
-        status=""
-        interactive={true}
+      type="received"
+      text="Las cosas nunca son tan privadas como uno cree, Iván."
+      consecutive={false}
+      time="11:26 p. m."
+      status=""
     />
     <Message
-        type="received"
-        text="No estoy afuera."
-        consecutive={true}
-        time="11:32 p. m."
-        status=""
-        interactive={true}
+      type="sent"
+      text="¿Quién diablos eres?"
+      consecutive={false}
+      time="11:27 p. m."
+      status="read"
     />
-</ChatLayout>
+    <Message
+      type="sent"
+      text="¿Es una broma de Juan?"
+      consecutive={true}
+      time="11:27 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="No soy Juan."
+      consecutive={false}
+      time="11:28 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="Y sé que estás solo en casa."
+      consecutive={true}
+      time="11:28 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="Voy a bloquear este número"
+      consecutive={false}
+      time="11:29 p. m."
+      status="read"
+    />
+    <Message
+      type="sent"
+      text="en este instante."
+      consecutive={true}
+      time="11:29 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="Puedes hacerlo."
+      consecutive={false}
+      time="11:30 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="Pero eso no evitará que siga viéndote."
+      consecutive={true}
+      time="11:30 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="Desde la ventana."
+      consecutive={true}
+      time="11:30 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="Estoy en un cuarto piso."
+      consecutive={false}
+      time="11:31 p. m."
+      status="read"
+    />
+    <Message
+      type="sent"
+      text="No hay ningún balcón frente al mío."
+      consecutive={true}
+      time="11:31 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="Lo sé."
+      consecutive={false}
+      time="11:32 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="No estoy afuera."
+      consecutive={true}
+      time="11:32 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="¿Entonces dónde estás?"
+      consecutive={false}
+      time="11:33 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="Adentro."
+      consecutive={false}
+      time="11:33 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="No hay nadie aquí."
+      consecutive={false}
+      time="11:34 p. m."
+      status="read"
+    />
+    <Message
+      type="sent"
+      text="Voy a llamar a la policía."
+      consecutive={true}
+      time="11:34 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="Ellos no llegarán a tiempo."
+      consecutive={false}
+      time="11:35 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="Además, no pueden entrar si la puerta está cerrada por dentro."
+      consecutive={true}
+      time="11:35 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="¿Cómo sabes que le eché llave a la puerta?"
+      consecutive={false}
+      time="11:36 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="Porque yo le eché llave cuando entraste."
+      consecutive={false}
+      time="11:36 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="¿No te diste cuenta?"
+      consecutive={true}
+      time="11:36 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="Basta, no tiene gracia."
+      consecutive={false}
+      time="11:37 p. m."
+      status="read"
+    />
+    <Message
+      type="sent"
+      text="Voy a salir de aquí."
+      consecutive={true}
+      time="11:37 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="Inténtalo."
+      consecutive={false}
+      time="11:38 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="El picaporte está atascado, ¿verdad?"
+      consecutive={true}
+      time="11:38 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="¡Abre la maldita puerta!"
+      consecutive={false}
+      time="11:39 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="Aún no."
+      consecutive={false}
+      time="11:40 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="Primero tenemos que hablar"
+      consecutive={true}
+      time="11:40 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="sobre lo que hiciste."
+      consecutive={true}
+      time="11:40 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="¿De qué hablas?"
+      consecutive={false}
+      time="11:41 p. m."
+      status="read"
+    />
+    <Message
+      type="sent"
+      text="Yo no he hecho nada."
+      consecutive={true}
+      time="11:41 p. m."
+      status="read"
+    />
+    <Message
+      type="sent"
+      text="Te estás confundiendo de persona."
+      consecutive={true}
+      time="11:41 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="Todos dicen eso."
+      consecutive={false}
+      time="11:42 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="Pero el espejo en el que te tomaste la foto no miente."
+      consecutive={true}
+      time="11:42 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="Mírate."
+      consecutive={true}
+      time="11:42 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="No voy a mirar el espejo."
+      consecutive={false}
+      time="11:43 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="Entonces yo te obligaré a mirar."
+      consecutive={false}
+      time="11:44 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="Date la vuelta."
+      consecutive={true}
+      time="11:44 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="Déjame en paz"
+      consecutive={false}
+      time="11:45 p. m."
+      status="read"
+    />
+    <Message
+      type="sent"
+      text="¿qué quieres de mí?"
+      consecutive={true}
+      time="11:45 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="Quiero que recuerdes."
+      consecutive={false}
+      time="11:46 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="Hace exactamente un año."
+      consecutive={true}
+      time="11:46 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="En la carretera."
+      consecutive={true}
+      time="11:46 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="Yo no estaba en ninguna carretera."
+      consecutive={false}
+      time="11:47 p. m."
+      status="read"
+    />
+    <Message
+      type="sent"
+      text="Fue un accidente."
+      consecutive={true}
+      time="11:47 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="¿Accidente?"
+      consecutive={false}
+      time="11:48 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="No te detuviste."
+      consecutive={true}
+      time="11:48 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="Me dejaste ahí."
+      consecutive={true}
+      time="11:48 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="No..."
+      consecutive={false}
+      time="11:49 p. m."
+      status="read"
+    />
+    <Message
+      type="sent"
+      text="Eso es imposible."
+      consecutive={true}
+      time="11:49 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="Mírame."
+      consecutive={false}
+      time="11:50 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="Estoy justo detrás de ti."
+      consecutive={true}
+      time="11:50 p. m."
+      status=""
+    />
+    <Message
+      type="received"
+      text="Acabo de apagar la luz."
+      consecutive={true}
+      time="11:50 p. m."
+      status=""
+    />
+    <Message
+      type="sent"
+      text="NO, ENCIÉNDELA"
+      consecutive={false}
+      time="11:51 p. m."
+      status="read"
+    />
+    <Message
+      type="sent"
+      text="¡POR FAVOR!"
+      consecutive={true}
+      time="11:51 p. m."
+      status="read"
+    />
+    <Message
+      type="received"
+      text="Bienvenido a la oscuridad, Iván."
+      consecutive={false}
+      time="11:52 p. m."
+      status=""
+    />
+    <ChatCTA
+      avatarSrc={avatarCiog.src}
+      avatarAlt="ciog"
+      name="ciog"
+      username="@ciog.dev"
+      message="¿Qué te pareció la experiencia? Cuéntame. 👻"
+      instagramUrl="https://www.instagram.com/ciog.dev/"
+      blogUrl="/blog"
+    />
+  </ChatLayout>
 </ChatModal>
 
 #### Al día siguiente
 
+<hr />
 
-
-<hr/>
-
-<br/>
+<br />
 
 ¿Te gustó?, dímelo por [Instagram](https://www.instagram.com/ciog.dev/).

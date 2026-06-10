@@ -26,6 +26,30 @@ const {
             {title}
         </p>
     </section>
-
-
 </header>
+
+<div class="profile-pic-modal" id="profilePicModal">
+    <div class="profile-pic-modal__bg"></div>
+    <div class="profile-pic-modal__content">
+        <img class="profile-pic-modal__img" src={image} alt={title} />
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.chat__header').forEach(header => {
+        const pic = header.querySelector('.chat__header--picture');
+        // Find the adjacent modal for this header (in case of multiple chats on page)
+        const modal = header.nextElementSibling as HTMLElement;
+        
+        if (pic && modal && modal.classList.contains('profile-pic-modal')) {
+            pic.addEventListener('click', (e) => {
+                e.stopPropagation();
+                modal.classList.add('active');
+            });
+
+            modal.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+        }
+    });
+</script>

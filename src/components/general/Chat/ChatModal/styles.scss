@@ -37,8 +37,33 @@
     border: none;
     background: transparent;
 
+    &[open] {
+        animation: chatSlideUp 0.3s ease-out forwards;
+    }
+
     &::backdrop {
         background: rgba(0,0,0,0.8);
+        animation: chatBackdropFade 0.3s ease-out forwards;
+    }
+}
+
+@keyframes chatSlideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes chatBackdropFade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
 
