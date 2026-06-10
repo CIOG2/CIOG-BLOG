@@ -18,82 +18,98 @@ import './styles.scss';
 <script>
     import { gsap } from "gsap";
 
+    // ── Chat modal logic ───────────────────────────────────────
     document.querySelectorAll('.chat-modal-wrapper').forEach(wrapper => {
-        const openBtn = wrapper.querySelector('.open-chat-btn');
-        const dialog = wrapper.querySelector('.chat-dialog');
-        const typingIndicator = wrapper.querySelector('#chat-typing-indicator');
+        const openBtn             = wrapper.querySelector('.open-chat-btn');
+        const introEl             = wrapper.querySelector('.chat-modal-intro') as HTMLElement | null;
+        const dialog              = wrapper.querySelector('.chat-dialog');
+        const typingIndicator     = wrapper.querySelector('#chat-typing-indicator');
         const interactiveMessages = wrapper.querySelectorAll('.chat__message--interactive');
-        const scrollContainer = wrapper.querySelector('.chat-dialog-content');
+        const scrollContainer     = wrapper.querySelector('.chat-dialog-content');
 
         let animationTimeline = null;
-        
-        openBtn?.addEventListener('click', () => {
-            if (dialog) {
-                // @ts-ignore
-                dialog.showModal();
-                document.body.style.overflow = 'hidden';
-                if (scrollContainer) {
-                    scrollContainer.scrollTop = 0;
-                }
 
-                if (!animationTimeline && interactiveMessages.length > 0) {
-                    animationTimeline = gsap.timeline();
+        function openChat() {
+            if (!dialog) return;
+            // @ts-ignore
+            dialog.showModal();
+            document.body.style.overflow = 'hidden';
+
+            // Hide intro so it never bleeds through the dialog backdrop
+            if (introEl) introEl.style.visibility = 'hidden';
+
+            // Hide page content outside the dialog (prevents bleed-through on mobile)
+            document.body.classList.add('chat-dialog-open');
+
+            if (scrollContainer) scrollContainer.scrollTop = 0;
+        }
+
+        function closeChat() {
+            document.body.style.overflow = '';
+            document.body.classList.remove('chat-dialog-open');
+            if (introEl) introEl.style.visibility = '';
+        }
+
+        openBtn?.addEventListener('click', () => {
+            openChat();
+
+            if (!animationTimeline && interactiveMessages.length > 0) {
+                animationTimeline = gsap.timeline();
+                
+                interactiveMessages.forEach((msg) => {
+                    const type = msg.getAttribute('data-type');
+                    const isReceived = type === 'received';
                     
-                    interactiveMessages.forEach((msg) => {
-                        const type = msg.getAttribute('data-type');
-                        const isReceived = type === 'received';
-                        
-                        if (isReceived && typingIndicator) {
-                            animationTimeline.call(() => {
-                                // Move indicator just before the message
-                                msg.parentNode.insertBefore(typingIndicator, msg);
-                                typingIndicator.style.display = 'block';
-                                gsap.to(typingIndicator, { opacity: 1, y: 0, duration: 0.3 });
-                                if (scrollContainer) scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: 'smooth' });
-                            });
-                            
-                            animationTimeline.to({}, { duration: 1.8 });
-                            
-                            animationTimeline.to(typingIndicator, { opacity: 0, y: 10, duration: 0.2 });
-                            animationTimeline.call(() => {
-                                typingIndicator.style.display = 'none';
-                            });
-                        } else {
-                            // If it's a 'sent' message, maybe just a tiny delay without typing indicator
-                            animationTimeline.to({}, { duration: 0.5 });
-                        }
-                        
+                    if (isReceived && typingIndicator) {
                         animationTimeline.call(() => {
-                            // @ts-ignore
-                            msg.style.display = 'flex';
+                            msg.parentNode.insertBefore(typingIndicator, msg);
+                            typingIndicator.style.display = 'block';
+                            gsap.to(typingIndicator, { opacity: 1, y: 0, duration: 0.3 });
+                            if (scrollContainer) scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: 'smooth' });
                         });
-                        animationTimeline.to(msg, { 
-                            opacity: 1, 
-                            y: 0, 
-                            duration: 0.4, 
-                            ease: "power2.out",
-                            onStart: () => {
-                                if (scrollContainer) scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: 'smooth' });
-                            }
+                        
+                        animationTimeline.to({}, { duration: 1.8 });
+                        
+                        animationTimeline.to(typingIndicator, { opacity: 0, y: 10, duration: 0.2 });
+                        animationTimeline.call(() => {
+                            typingIndicator.style.display = 'none';
                         });
+                    } else {
+                        animationTimeline.to({}, { duration: 0.5 });
+                    }
+                    
+                    animationTimeline.call(() => {
+                        // @ts-ignore
+                        msg.style.display = 'flex';
                     });
-                }
+                    animationTimeline.to(msg, { 
+                        opacity: 1, 
+                        y: 0, 
+                        duration: 0.4, 
+                        ease: "power2.out",
+                        onStart: () => {
+                            if (scrollContainer) scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: 'smooth' });
+                        }
+                    });
+                });
             }
         });
 
+        // Back button inside the chat header
         wrapper.addEventListener('click', (e) => {
             const target = e.target as HTMLElement;
             if (target.closest('.chat__header--back-btn')) {
                 if (dialog) {
                     // @ts-ignore
                     dialog.close();
-                    document.body.style.overflow = '';
+                    closeChat();
                 }
             }
         });
 
         dialog?.addEventListener('close', () => {
-            document.body.style.overflow = '';
+            closeChat();
         });
     });
 </script>
+

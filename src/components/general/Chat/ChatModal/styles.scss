@@ -92,3 +92,14 @@
         background: #0b141a; /* WhatsApp dark bg */
     }
 }
+
+/* ── Hide page content while chat dialog is open ──────────
+   Prevents any blog/page content from bleeding through the
+   dialog backdrop, especially on mobile browsers.
+   ───────────────────────────────────────────────────────── */
+body.chat-dialog-open {
+    /* Hide everything that is NOT the dialog or its backdrop */
+    > *:not(dialog) {
+        visibility: hidden !important;
+    }
+}

@@ -433,6 +433,14 @@ const {
                             setTimeout(() => {
                                 overlay?.classList.remove('chat__call--active', 'chat__call--fading');
                                 overlay?.setAttribute('aria-hidden', 'true');
+                                // Fully remove from event chain so scroll is never blocked
+                                if (overlay) overlay.style.display = 'none';
+                                // Restore dialog scroll container in case it was disrupted
+                                const scrollContainer = document.querySelector('.chat-dialog-content');
+                                if (scrollContainer) {
+                                    scrollContainer.style.overflow  = '';
+                                    scrollContainer.style.overflowY = 'auto';
+                                }
                             }, 600);
                         }, 3000);
 

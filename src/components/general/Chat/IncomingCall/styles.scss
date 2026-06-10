@@ -26,6 +26,7 @@
     &.chat__call--fading {
         opacity: 0;
         transform: translateY(-20px);
+        pointer-events: none; /* Stop intercepting events immediately during fade */
     }
 }
 
