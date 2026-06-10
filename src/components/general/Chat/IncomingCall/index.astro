@@ -21,6 +21,7 @@ const {
     role="dialog"
     aria-modal="true"
     aria-label="Llamada entrante"
+    inert
     aria-hidden="true"
 >
     <!-- ── Blurred background ── -->
@@ -69,7 +70,7 @@ const {
     </div>
 
     <!-- ══ CONNECTED STATE (hidden initially) ══════════════ -->
-    <div class="chat__call--connected" id="call-connected" aria-hidden="true">
+    <div class="chat__call--connected" id="call-connected" inert aria-hidden="true">
 
         <!-- Timer — big, top center -->
         <p class="chat__call--connected-timer" id="call-timer" aria-live="polite">00:00</p>
@@ -105,7 +106,7 @@ const {
     )}
 
     <!-- ══ CALL ENDED overlay ══════════════════════════════ -->
-    <div class="chat__call--ended" id="call-ended" aria-hidden="true">
+    <div class="chat__call--ended" id="call-ended" inert aria-hidden="true">
         <!-- Red hung-up phone icon -->
         <div class="chat__call--ended-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -348,6 +349,7 @@ const {
     // ────────────────────────────────────────────────────────
     function triggerCall() {
         if (!overlay) return;
+        overlay.removeAttribute('inert');
         overlay.removeAttribute('aria-hidden');
         overlay.classList.add('chat__call--active');
         startRing();
@@ -423,6 +425,7 @@ const {
 
                         // Show "Llamada finalizada" screen
                         if (endedPanel) {
+                            endedPanel.removeAttribute('inert');
                             endedPanel.removeAttribute('aria-hidden');
                             endedPanel.classList.add('chat__call--ended-visible');
                         }
@@ -432,6 +435,7 @@ const {
                             overlay?.classList.add('chat__call--fading');
                             setTimeout(() => {
                                 overlay?.classList.remove('chat__call--active', 'chat__call--fading');
+                                overlay?.setAttribute('inert', '');
                                 overlay?.setAttribute('aria-hidden', 'true');
                                 // Fully remove from event chain so scroll is never blocked
                                 if (overlay) overlay.style.display = 'none';
@@ -451,6 +455,7 @@ const {
 
             // 3. Show connected panel
             if (connectedPanel) {
+                connectedPanel.removeAttribute('inert');
                 connectedPanel.removeAttribute('aria-hidden');
                 connectedPanel.classList.add('chat__call--connected-visible');
             }
