@@ -1,0 +1,283 @@
+/* ── Incoming Call Overlay ──────────────────────────────────── */
+
+.chat__call {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 72px 2rem 64px;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(30px);
+    transition:
+        opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.chat__call--active {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateY(0);
+    }
+
+    &.chat__call--fading {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Blurred background */
+.chat__call--bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    background: #050a0d;
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            180deg,
+            rgba(5, 10, 13, 0.55) 0%,
+            rgba(5, 10, 13, 0.4) 40%,
+            rgba(5, 10, 13, 0.85) 100%
+        );
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: blur(28px) saturate(0.4) brightness(0.45);
+        transform: scale(1.15);
+    }
+}
+
+/* ── TOP: incoming info ───────────────────────────────────── */
+.chat__call--top {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: opacity 0.4s ease;
+}
+
+.chat__call--label {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.chat__call--name {
+    font-size: clamp(22px, 6vw, 32px);
+    font-weight: 300;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.01em;
+    font-family: inherit;
+}
+
+.chat__call--status {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 4px 0 0;
+    min-height: 1.4em;
+    transition: opacity 0.3s ease;
+}
+
+/* ── MIDDLE: avatar with pulse rings ─────────────────────── */
+.chat__call--avatar-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+}
+
+.chat__call--pulse {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(0, 168, 132, 0.18);
+    animation: callRingPulse 2.2s ease-out infinite;
+
+    &:nth-child(2) { animation-delay: 0.7s; }
+    &:nth-child(3) { animation-delay: 1.4s; }
+}
+
+@keyframes callRingPulse {
+    0%   { transform: scale(1);   opacity: 0.8; }
+    100% { transform: scale(2.8); opacity: 0; }
+}
+
+.chat__call--avatar {
+    position: relative;
+    z-index: 1;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.chat__call--avatar-placeholder {
+    position: relative;
+    z-index: 1;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        width: 48px;
+        height: 48px;
+        color: rgba(255, 255, 255, 0.6);
+    }
+}
+
+/* ── BOTTOM: only answer button ──────────────────────────── */
+.chat__call--controls {
+    display: flex;
+    justify-content: center;
+    transition: opacity 0.4s ease;
+}
+
+.chat__call--btn-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    span {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.7);
+        letter-spacing: 0.02em;
+    }
+}
+
+.chat__call--btn-answer {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #00a884;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 0 0 rgba(0, 168, 132, 0.5),
+        0 4px 16px rgba(0, 0, 0, 0.4);
+    animation: answerPulse 1.5s ease-in-out infinite;
+    transition: transform 0.15s ease, background 0.15s ease;
+
+    &:hover  { background: #00c49a; transform: scale(1.08); }
+    &:active { transform: scale(0.95); }
+
+    svg {
+        color: #ffffff;
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@keyframes answerPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 168, 132, 0.55), 0 4px 16px rgba(0, 0, 0, 0.4); }
+    50%       { box-shadow: 0 0 0 14px rgba(0, 168, 132, 0), 0 4px 16px rgba(0, 0, 0, 0.4); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   CONNECTED STATE — completely replaces incoming UI
+   ══════════════════════════════════════════════════════════ */
+
+.chat__call--connected {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 24px 64px;
+    gap: 0;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+
+    &.chat__call--connected-visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+
+/* Timer — large, top center */
+.chat__call--connected-timer {
+    font-size: clamp(42px, 10vw, 64px);
+    font-weight: 200;
+    color: #ffffff;
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+    margin: 0 0 4px;
+    line-height: 1;
+}
+
+/* Caller name — small, below timer */
+.chat__call--connected-name {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 0 auto;
+    letter-spacing: 0.02em;
+}
+
+/* Avatar — smaller, in middle */
+.chat__call--connected-avatar {
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    object-fit: cover;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 32px;
+}
+
+.chat__call--connected-avatar-placeholder {
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 32px;
+
+    svg {
+        width: 32px;
+        height: 32px;
+        color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* Audio spectrum canvas */
+.chat__call--spectrum {
+    width: 100%;
+    max-width: 320px;
+    height: 72px;
+    display: block;
+    border-radius: 8px;
+}

@@ -1,0 +1,394 @@
+---
+import './styles.scss';
+
+const {
+    callerName     = '+52 667 430 3666',
+    callerLabel    = 'Llamada de WhatsApp',
+    callerImage,
+    callerImageAlt = 'Foto de perfil',
+    /** MP3 used as the incoming ring sound */
+    ringtoneSrc,
+    /** Optional audio that plays automatically on answer and drives the spectrum */
+    audioSrc,
+    /** id of the sentinel element that triggers the call */
+    sentinelId     = 'chat-cta',
+} = Astro.props;
+---
+
+<div
+    class="chat__call"
+    id="chat-incoming-call"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Llamada entrante"
+    aria-hidden="true"
+>
+    <!-- ── Blurred background ── -->
+    <div class="chat__call--bg">
+        {callerImage && <img src={callerImage} alt="" aria-hidden="true" />}
+    </div>
+
+    <!-- ══ INCOMING STATE ══════════════════════════════════ -->
+
+    <!-- TOP: caller info -->
+    <div class="chat__call--top" id="call-incoming-top">
+        <p class="chat__call--label">{callerLabel}</p>
+        <h2 class="chat__call--name">{callerName}</h2>
+        <p class="chat__call--status" id="call-status-text">Llamada entrante…</p>
+    </div>
+
+    <!-- MIDDLE: avatar + pulse rings -->
+    <div class="chat__call--avatar-wrap" id="call-incoming-avatar">
+        <div class="chat__call--pulse"></div>
+        <div class="chat__call--pulse"></div>
+        <div class="chat__call--pulse"></div>
+        {callerImage
+            ? <img class="chat__call--avatar" src={callerImage} alt={callerImageAlt} />
+            : <div class="chat__call--avatar-placeholder">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                </svg>
+              </div>
+        }
+    </div>
+
+    <!-- BOTTOM: ONLY answer button — no reject -->
+    <div class="chat__call--controls" id="call-incoming-controls">
+        <div class="chat__call--btn-wrap">
+            <button
+                class="chat__call--btn-answer"
+                id="call-answer-btn"
+                aria-label="Contestar llamada"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+                </svg>
+            </button>
+            <span>Contestar</span>
+        </div>
+    </div>
+
+    <!-- ══ CONNECTED STATE (hidden initially) ══════════════ -->
+    <div class="chat__call--connected" id="call-connected" aria-hidden="true">
+
+        <!-- Timer — big, top center -->
+        <p class="chat__call--connected-timer" id="call-timer" aria-live="polite">00:00</p>
+        <p class="chat__call--connected-name">{callerName}</p>
+
+        <!-- Spacer pushes avatar + spectrum to center / lower -->
+        <div style="flex: 1;"></div>
+
+        <!-- Avatar — smaller -->
+        {callerImage
+            ? <img class="chat__call--connected-avatar" src={callerImage} alt={callerImageAlt} />
+            : <div class="chat__call--connected-avatar-placeholder">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                </svg>
+              </div>
+        }
+
+        <!-- Spectrum canvas -->
+        <canvas class="chat__call--spectrum" id="call-spectrum" aria-hidden="true"></canvas>
+
+        <div style="flex: 1;"></div>
+    </div>
+
+    <!-- Hidden audio element (optional, driven by audioSrc prop) -->
+    {audioSrc && (
+        <audio id="call-audio" src={audioSrc} preload="auto" style="display:none;"></audio>
+    )}
+
+    <!-- Hidden ringtone element -->
+    {ringtoneSrc && (
+        <audio id="call-ring-audio" src={ringtoneSrc} loop preload="auto" style="display:none;"></audio>
+    )}
+</div>
+
+<script define:vars={{ sentinelId }}>
+    // ────────────────────────────────────────────────────────
+    // State
+    // ────────────────────────────────────────────────────────
+    let callTriggered  = false;
+    let ringInterval   = null;
+    let vibrateTimer   = null;
+    let timerInterval  = null;
+    let audioCtx       = null;
+    let analyser       = null;
+    let spectrumFrame  = null;
+    let timerSeconds   = 0;
+
+    // ────────────────────────────────────────────────────────
+    // DOM refs
+    // ────────────────────────────────────────────────────────
+    const overlay        = document.getElementById('chat-incoming-call');
+    const incomingTop    = document.getElementById('call-incoming-top');
+    const incomingAvatar = document.getElementById('call-incoming-avatar');
+    const incomingCtrl   = document.getElementById('call-incoming-controls');
+    const connectedPanel = document.getElementById('call-connected');
+    const statusText     = document.getElementById('call-status-text');
+    const answerBtn      = document.getElementById('call-answer-btn');
+    const timerEl        = document.getElementById('call-timer');
+    const canvas         = document.getElementById('call-spectrum');
+    const audioEl        = document.getElementById('call-audio');
+    const ringAudioEl    = document.getElementById('call-ring-audio');
+    const sentinel       = document.getElementById(sentinelId);
+
+    // ────────────────────────────────────────────────────────
+    // AudioContext — unlock on any user gesture
+    // ────────────────────────────────────────────────────────
+    function getAudioCtx() {
+        if (!audioCtx) {
+            const Ctor = window.AudioContext || window.webkitAudioContext;
+            if (Ctor) audioCtx = new Ctor();
+        }
+        if (audioCtx?.state === 'suspended') audioCtx.resume();
+        return audioCtx;
+    }
+    document.addEventListener('click', getAudioCtx, { passive: true });
+
+    // ────────────────────────────────────────────────────────
+    // Ring tone — MP3 file (loops while ringing)
+    // ────────────────────────────────────────────────────────
+    function startRing() {
+        if (ringAudioEl) {
+            ringAudioEl.currentTime = 0;
+            ringAudioEl.play().catch(() => {});
+        }
+    }
+
+    function stopRing() {
+        if (ringAudioEl) {
+            ringAudioEl.pause();
+            ringAudioEl.currentTime = 0;
+        }
+    }
+
+    // ────────────────────────────────────────────────────────
+    // Vibration API
+    // ────────────────────────────────────────────────────────
+    function startVibration() {
+        if (!('vibrate' in navigator)) return;
+        const doVib = () => navigator.vibrate([400, 150, 400, 150, 400]);
+        doVib();
+        vibrateTimer = setInterval(doVib, 2600);
+    }
+
+    function stopVibration() {
+        if (vibrateTimer) { clearInterval(vibrateTimer); vibrateTimer = null; }
+        if ('vibrate' in navigator) navigator.vibrate(0);
+    }
+
+    // ────────────────────────────────────────────────────────
+    // Spectrum — canvas bar visualizer
+    // ────────────────────────────────────────────────────────
+    const BAR_COUNT  = 36;
+    const BAR_GAP    = 3;
+    const BAR_RADIUS = 3;
+    const COLOR_MAIN = '#00a884';
+    const COLOR_DIM  = 'rgba(0,168,132,0.25)';
+
+    function setupCanvas(cvs) {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = cvs.getBoundingClientRect();
+        cvs.width  = rect.width  * dpr;
+        cvs.height = rect.height * dpr;
+        const ctx  = cvs.getContext('2d');
+        ctx.scale(dpr, dpr);
+        return { ctx, w: rect.width, h: rect.height };
+    }
+
+    function drawBar(ctx, x, barW, barH, totalH) {
+        const y = (totalH - barH) / 2;
+        const r = Math.min(BAR_RADIUS, barW / 2, barH / 2);
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + barW - r, y);
+        ctx.quadraticCurveTo(x + barW, y, x + barW, y + r);
+        ctx.lineTo(x + barW, y + barH - r);
+        ctx.quadraticCurveTo(x + barW, y + barH, x + barW - r, y + barH);
+        ctx.lineTo(x + r, y + barH);
+        ctx.quadraticCurveTo(x, y + barH, x, y + barH - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    function startSpectrum(cvs) {
+        if (!cvs) return;
+
+        // Size canvas to its CSS dimensions
+        cvs.style.width  = '100%';
+        cvs.style.height = '72px';
+        // Wait one frame so CSS layout has applied
+        requestAnimationFrame(() => {
+            const { ctx, w, h } = setupCanvas(cvs);
+            const barW = (w - BAR_GAP * (BAR_COUNT - 1)) / BAR_COUNT;
+            let freqData = null;
+
+            // Connect to real audio analyser if available
+            if (analyser) {
+                freqData = new Uint8Array(analyser.frequencyBinCount);
+            }
+
+            // Smooth values for animation
+            const smooth = new Float32Array(BAR_COUNT).fill(0);
+            const SMOOTHING = 0.75; // 0 = instant, 1 = never change
+
+            function draw(timestamp) {
+                spectrumFrame = requestAnimationFrame(draw);
+                ctx.clearRect(0, 0, w, h);
+
+                // Gather raw values
+                let raw = new Float32Array(BAR_COUNT);
+                if (analyser && freqData) {
+                    analyser.getByteFrequencyData(freqData);
+                    for (let i = 0; i < BAR_COUNT; i++) {
+                        const idx = Math.floor(i * freqData.length / (BAR_COUNT * 1.5));
+                        raw[i]    = freqData[idx] / 255;
+                    }
+                } else {
+                    // Animated fallback — voice-like wave simulation
+                    const t = timestamp * 0.001;
+                    for (let i = 0; i < BAR_COUNT; i++) {
+                        const pos   = i / BAR_COUNT;
+                        const wave1 = Math.sin(t * 3.1 + pos * 12) * 0.5 + 0.5;
+                        const wave2 = Math.sin(t * 2.3 + pos * 7  + 1.5) * 0.5 + 0.5;
+                        const wave3 = Math.sin(t * 5.7 + pos * 20) * 0.25 + 0.25;
+                        // Bell curve envelope: louder in the middle
+                        const env   = Math.exp(-Math.pow((pos - 0.5) * 2.5, 2));
+                        raw[i]      = Math.min(1, (wave1 * 0.5 + wave2 * 0.3 + wave3 * 0.2) * env * 1.4);
+                    }
+                }
+
+                // Apply smoothing
+                for (let i = 0; i < BAR_COUNT; i++) {
+                    smooth[i] = smooth[i] * SMOOTHING + raw[i] * (1 - SMOOTHING);
+                }
+
+                for (let i = 0; i < BAR_COUNT; i++) {
+                    const x     = i * (barW + BAR_GAP);
+                    const minH  = 4;
+                    const barH  = Math.max(minH, smooth[i] * h * 0.9);
+                    // Color: bright when active, dim when silent
+                    ctx.fillStyle = smooth[i] > 0.08 ? COLOR_MAIN : COLOR_DIM;
+                    drawBar(ctx, x, barW, barH, h);
+                }
+            }
+
+            draw(0);
+        });
+    }
+
+    function stopSpectrum() {
+        if (spectrumFrame) { cancelAnimationFrame(spectrumFrame); spectrumFrame = null; }
+    }
+
+    // ────────────────────────────────────────────────────────
+    // Timer
+    // ────────────────────────────────────────────────────────
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function startTimer() {
+        timerSeconds = 0;
+        timerInterval = setInterval(() => {
+            timerSeconds++;
+            const m = Math.floor(timerSeconds / 60);
+            const s = timerSeconds % 60;
+            if (timerEl) timerEl.textContent = `${pad(m)}:${pad(s)}`;
+        }, 1000);
+    }
+
+    function stopTimer() {
+        if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+    }
+
+    // ────────────────────────────────────────────────────────
+    // Trigger incoming call
+    // ────────────────────────────────────────────────────────
+    function triggerCall() {
+        if (!overlay) return;
+        overlay.removeAttribute('aria-hidden');
+        overlay.classList.add('chat__call--active');
+        startRing();
+        startVibration();
+    }
+
+    // ────────────────────────────────────────────────────────
+    // IntersectionObserver — watch sentinel element
+    // ────────────────────────────────────────────────────────
+    if (sentinel) {
+        const scrollRoot = document.querySelector('.chat-dialog-content') ?? null;
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !callTriggered) {
+                callTriggered = true;
+                observer.disconnect();
+                setTimeout(triggerCall, 1200);
+            }
+        }, { root: scrollRoot, threshold: 0.3 });
+
+        observer.observe(sentinel);
+    }
+
+    // ────────────────────────────────────────────────────────
+    // Answer button
+    // ────────────────────────────────────────────────────────
+    answerBtn?.addEventListener('click', () => {
+        stopRing();
+        stopVibration();
+
+        // Update status briefly
+        if (statusText) statusText.textContent = 'Conectando…';
+
+        setTimeout(() => {
+            // 1. Hide incoming-state panels
+            [incomingTop, incomingAvatar, incomingCtrl].forEach(el => {
+                if (!el) return;
+                el.style.opacity        = '0';
+                el.style.pointerEvents  = 'none';
+            });
+
+            // 2. Setup audio + analyser before showing connected panel
+            const ctx = getAudioCtx();
+            if (ctx && audioEl) {
+                try {
+                    const source = ctx.createMediaElementSource(audioEl);
+                    analyser             = ctx.createAnalyser();
+                    analyser.fftSize     = 512;
+                    analyser.smoothingTimeConstant = 0.8;
+                    source.connect(analyser);
+                    analyser.connect(ctx.destination);
+                } catch (e) {
+                    // MediaElementSource already created, ignore
+                }
+                audioEl.play().catch(() => {});
+
+                // When audio ends → fade out overlay
+                audioEl.addEventListener('ended', () => {
+                    stopTimer();
+                    stopSpectrum();
+                    setTimeout(() => {
+                        overlay?.classList.add('chat__call--fading');
+                        setTimeout(() => {
+                            overlay?.classList.remove('chat__call--active', 'chat__call--fading');
+                            overlay?.setAttribute('aria-hidden', 'true');
+                        }, 600);
+                    }, 1500);
+                }, { once: true });
+            }
+
+            // 3. Show connected panel
+            if (connectedPanel) {
+                connectedPanel.removeAttribute('aria-hidden');
+                connectedPanel.classList.add('chat__call--connected-visible');
+            }
+
+            // 4. Start timer + spectrum
+            startTimer();
+            startSpectrum(canvas);
+
+        }, 700);
+    });
+</script>
