@@ -273,7 +273,7 @@
     }
 }
 
-/* Audio spectrum canvas */
+/* ── Audio spectrum canvas */
 .chat__call--spectrum {
     width: 100%;
     max-width: 320px;
@@ -281,3 +281,68 @@
     display: block;
     border-radius: 8px;
 }
+
+/* ══════════════════════════════════════════════════════════
+   CALL ENDED overlay
+   ══════════════════════════════════════════════════════════ */
+
+.chat__call--ended {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+
+    &.chat__call--ended-visible {
+        opacity: 1;
+    }
+}
+
+.chat__call--ended-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255, 59, 48, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    animation: endedIconPulse 0.5s ease-out;
+
+    svg {
+        width: 28px;
+        height: 28px;
+        color: #ff3b30;
+        /* Rotate to represent "hung up" */
+        transform: rotate(135deg);
+    }
+}
+
+@keyframes endedIconPulse {
+    0%   { transform: scale(0.7); opacity: 0; }
+    60%  { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1);   opacity: 1; }
+}
+
+.chat__call--ended-title {
+    font-size: 20px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    letter-spacing: 0.01em;
+}
+
+.chat__call--ended-duration {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+}
+

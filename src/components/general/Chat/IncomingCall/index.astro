@@ -103,6 +103,18 @@ const {
     {ringtoneSrc && (
         <audio id="call-ring-audio" src={ringtoneSrc} loop preload="auto" style="display:none;"></audio>
     )}
+
+    <!-- ══ CALL ENDED overlay ══════════════════════════════ -->
+    <div class="chat__call--ended" id="call-ended" aria-hidden="true">
+        <!-- Red hung-up phone icon -->
+        <div class="chat__call--ended-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+            </svg>
+        </div>
+        <p class="chat__call--ended-title">Llamada finalizada</p>
+        <p class="chat__call--ended-duration" id="call-ended-duration">00:00</p>
+    </div>
 </div>
 
 <script define:vars={{ sentinelId }}>
@@ -132,6 +144,8 @@ const {
     const canvas         = document.getElementById('call-spectrum');
     const audioEl        = document.getElementById('call-audio');
     const ringAudioEl    = document.getElementById('call-ring-audio');
+    const endedPanel     = document.getElementById('call-ended');
+    const endedDuration  = document.getElementById('call-ended-duration');
     const sentinel       = document.getElementById(sentinelId);
 
     // ────────────────────────────────────────────────────────
@@ -162,6 +176,31 @@ const {
             ringAudioEl.pause();
             ringAudioEl.currentTime = 0;
         }
+    }
+
+    // ────────────────────────────────────────────────────────
+    // End-call beep — two descending tones via Web Audio API
+    // ────────────────────────────────────────────────────────
+    function playEndBeep() {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+
+        const now = ctx.currentTime;
+        // Tone 1: 480 Hz  |  Tone 2: 380 Hz  |  Tone 3: 300 Hz
+        [[480, 0.00], [380, 0.32], [300, 0.64]].forEach(([freq, offset]) => {
+            const osc  = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type            = 'sine';
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0,    now + offset);
+            gain.gain.linearRampToValueAtTime(0.18, now + offset + 0.02);
+            gain.gain.setValueAtTime(0.18, now + offset + 0.22);
+            gain.gain.linearRampToValueAtTime(0,    now + offset + 0.28);
+            osc.start(now + offset);
+            osc.stop(now  + offset + 0.30);
+        });
     }
 
     // ────────────────────────────────────────────────────────
@@ -365,17 +404,40 @@ const {
                 }
                 audioEl.play().catch(() => {});
 
-                // When audio ends → fade out overlay
+                // When audio ends → show "Llamada finalizada" then fade out
                 audioEl.addEventListener('ended', () => {
                     stopTimer();
                     stopSpectrum();
+
+                    // Capture final duration for display
+                    const m = Math.floor(timerSeconds / 60);
+                    const s = timerSeconds % 60;
+                    if (endedDuration) endedDuration.textContent = `${pad(m)}:${pad(s)}`;
+
+                    // Fade out spectrum + connected panel
+                    if (connectedPanel) connectedPanel.style.opacity = '0';
+
+                    // Play end-call beep
                     setTimeout(() => {
-                        overlay?.classList.add('chat__call--fading');
+                        playEndBeep();
+
+                        // Show "Llamada finalizada" screen
+                        if (endedPanel) {
+                            endedPanel.removeAttribute('aria-hidden');
+                            endedPanel.classList.add('chat__call--ended-visible');
+                        }
+
+                        // After 3 s, fade out the whole overlay
                         setTimeout(() => {
-                            overlay?.classList.remove('chat__call--active', 'chat__call--fading');
-                            overlay?.setAttribute('aria-hidden', 'true');
-                        }, 600);
-                    }, 1500);
+                            overlay?.classList.add('chat__call--fading');
+                            setTimeout(() => {
+                                overlay?.classList.remove('chat__call--active', 'chat__call--fading');
+                                overlay?.setAttribute('aria-hidden', 'true');
+                            }, 600);
+                        }, 3000);
+
+                    }, 400);
+
                 }, { once: true });
             }
 
