@@ -16,8 +16,8 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 12px;
-    padding: 0px 14px;
+    gap: 8px; /* Reduced gap to consume less space */
+    padding: 0px 14px 0px 8px; /* Left padding matches the gap for even spacing */
     height: 100%;
 }
 .chat__header--picture{
@@ -41,6 +41,12 @@
     .chat__header--back-btn {
         color: #aebac1;
     }
+    .chat__header--title {
+        color: #e9edef;
+    }
+    .chat__header--status {
+        color: #8696a0;
+    }
 }
 
 .chat__header--back-btn {
@@ -53,6 +59,32 @@
     color: #54656f;
     padding: 0;
     margin-right: 4px;
+}
+
+.chat__header--text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.chat__header--title {
+    color: #111b21; /* WhatsApp default dark text */
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.chat__header--status {
+    color: #667781;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.2;
+    transition: color 0.2s ease;
+}
+
+.chat__header--status-typing {
+    color: #25D366 !important;
 }
 
 .chat__header--picture {

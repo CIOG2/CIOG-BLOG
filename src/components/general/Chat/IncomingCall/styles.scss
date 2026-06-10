@@ -1,3 +1,8 @@
+/* Make the Preact island wrapper invisible to layout */
+astro-island:has(.chat__call) {
+    display: contents;
+}
+
 /* ── Incoming Call Overlay ──────────────────────────────────── */
 
 .chat__call {

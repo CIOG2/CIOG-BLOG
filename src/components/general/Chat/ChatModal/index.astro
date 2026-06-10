@@ -12,6 +12,10 @@ import './styles.scss';
         <div class="chat-dialog-content not-prose">
             <slot />
         </div>
+        <!-- Custom scrollbar overlay (replaces native) -->
+        <div class="chat-scrollbar" id="chat-scrollbar" aria-hidden="true">
+            <div class="chat-scrollbar__thumb" id="chat-scrollbar-thumb"></div>
+        </div>
     </dialog>
 </div>
 
@@ -25,9 +29,41 @@ import './styles.scss';
         const dialog              = wrapper.querySelector('.chat-dialog');
         const typingIndicator     = wrapper.querySelector('#chat-typing-indicator');
         const interactiveMessages = wrapper.querySelectorAll('.chat__message--interactive');
-        const scrollContainer     = wrapper.querySelector('.chat-dialog-content');
+        const scrollContainer     = wrapper.querySelector('.chat-dialog-content') as HTMLElement | null;
+        const scrollbarTrack      = wrapper.querySelector('#chat-scrollbar') as HTMLElement | null;
+        const scrollbarThumb      = wrapper.querySelector('#chat-scrollbar-thumb') as HTMLElement | null;
 
         let animationTimeline = null;
+        let scrollHideTimer: ReturnType<typeof setTimeout> | null = null;
+
+        // ── Custom scrollbar ────────────────────────────────────
+        function updateScrollbar() {
+            if (!scrollContainer || !scrollbarTrack || !scrollbarThumb) return;
+
+            const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
+
+            // Hide scrollbar when content fits
+            if (scrollHeight <= clientHeight) {
+                scrollbarTrack.style.display = 'none';
+                return;
+            }
+            scrollbarTrack.style.display = '';
+
+            const ratio      = clientHeight / scrollHeight;
+            const thumbH     = Math.max(ratio * clientHeight, 36);  // min 36px
+            const maxScroll  = scrollHeight - clientHeight;
+            const thumbTop   = (scrollTop / maxScroll) * (clientHeight - thumbH);
+
+            scrollbarThumb.style.height    = `${thumbH}px`;
+            scrollbarThumb.style.transform = `translateY(${thumbTop}px)`;
+
+            // Flash visible → auto-hide after 1.5 s
+            scrollbarTrack.classList.add('chat-scrollbar--visible');
+            if (scrollHideTimer) clearTimeout(scrollHideTimer);
+            scrollHideTimer = setTimeout(() => {
+                scrollbarTrack?.classList.remove('chat-scrollbar--visible');
+            }, 1500);
+        }
 
         function openChat() {
             if (!dialog) return;
@@ -38,15 +74,14 @@ import './styles.scss';
             // Hide intro so it never bleeds through the dialog backdrop
             if (introEl) introEl.style.visibility = 'hidden';
 
-            // Hide page content outside the dialog (prevents bleed-through on mobile)
-            document.body.classList.add('chat-dialog-open');
-
             if (scrollContainer) scrollContainer.scrollTop = 0;
+
+            // Attach scroll listener for custom scrollbar
+            scrollContainer?.addEventListener('scroll', updateScrollbar, { passive: true });
         }
 
         function closeChat() {
             document.body.style.overflow = '';
-            document.body.classList.remove('chat-dialog-open');
             if (introEl) introEl.style.visibility = '';
         }
 

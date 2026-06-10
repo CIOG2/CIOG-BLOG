@@ -11,18 +11,18 @@ authorSEO: ciog, carlos ivan, ivan ochoa, carlos ivan ochoa gomez, ciog.dev
 
 import { Image } from "astro:assets";
 import CardMusic from "../../components/general/CardMusic/index.astro";
-import ChatLayout from "../../components/general/Chat/Layout/index.astro";
-import Message from "../../components/general/Chat/Message/index.astro";
-import HeaderChat from "../../components/general/Chat/Header/index.astro";
-import ChatModal from "../../components/general/Chat/ChatModal/index.astro";
-import ChatAlert from "../../components/general/Chat/Alert/index.astro";
-import ChatCTA from "../../components/general/Chat/CTA/index.astro";
-import IncomingCall from "../../components/general/Chat/IncomingCall/index.astro";
+import ChatLayout from "../../components/general/Chat/Layout/Layout";
+import Message from "../../components/general/Chat/Message/Message";
+import HeaderChat from "../../components/general/Chat/Header/Header";
+import ChatModal from "../../components/general/Chat/ChatModal/ChatModal";
+import ChatAlert from "../../components/general/Chat/Alert/Alert";
+import ChatCTA from "../../components/general/Chat/CTA/CTA";
+import IncomingCall from "../../components/general/Chat/IncomingCall/IncomingCall";
 import stickerAstronauta from "../../assets/Astronauta.webp";
 import avatarCiog from "../../assets/ciog.jpg";
 import { WorkInProgressBanner } from "../../components/general/WorkInProgressBanner";
 
-<ChatModal>
+<ChatModal client:load>
   <ChatLayout>
     <HeaderChat
       title="+52 667 430 3666"
@@ -569,12 +569,14 @@ import { WorkInProgressBanner } from "../../components/general/WorkInProgressBan
     />
   </ChatLayout>
   <IncomingCall
+    client:load
     callerName="+52 667 430 3666"
     callerLabel="Llamada de WhatsApp"
     callerImage={avatarCiog.src}
     callerImageAlt="Foto de perfil"
     ringtoneSrc="/posts/La-conversacion/RingTone.mp3"
     audioSrc="/posts/La-conversacion/call.mp3"
+    callEndedSrc="/posts/La-conversacion/call-out.mp3"
     sentinelId="chat-cta"
   />
 </ChatModal>

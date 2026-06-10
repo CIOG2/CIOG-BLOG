@@ -8,8 +8,10 @@ const {
     callerImageAlt = 'Foto de perfil',
     /** MP3 used as the incoming ring sound */
     ringtoneSrc,
-    /** Optional audio that plays automatically on answer and drives the spectrum */
+    /** Audio that plays on answer and drives the spectrum */
     audioSrc,
+    /** Sound played when the call ends (e.g. call-out.mp3) */
+    callEndedSrc,
     /** id of the sentinel element that triggers the call */
     sentinelId     = 'chat-cta',
 } = Astro.props;
@@ -105,6 +107,11 @@ const {
         <audio id="call-ring-audio" src={ringtoneSrc} loop preload="auto" style="display:none;"></audio>
     )}
 
+    <!-- Hidden call-ended sound -->
+    {callEndedSrc && (
+        <audio id="call-ended-audio" src={callEndedSrc} preload="auto" style="display:none;"></audio>
+    )}
+
     <!-- ══ CALL ENDED overlay ══════════════════════════════ -->
     <div class="chat__call--ended" id="call-ended" inert aria-hidden="true">
         <!-- Red hung-up phone icon -->
@@ -145,6 +152,7 @@ const {
     const canvas         = document.getElementById('call-spectrum');
     const audioEl        = document.getElementById('call-audio');
     const ringAudioEl    = document.getElementById('call-ring-audio');
+    const endedAudioEl   = document.getElementById('call-ended-audio');
     const endedPanel     = document.getElementById('call-ended');
     const endedDuration  = document.getElementById('call-ended-duration');
     const sentinel       = document.getElementById(sentinelId);
@@ -180,28 +188,13 @@ const {
     }
 
     // ────────────────────────────────────────────────────────
-    // End-call beep — two descending tones via Web Audio API
+    // End-call sound — MP3 file (call-out.mp3)
     // ────────────────────────────────────────────────────────
     function playEndBeep() {
-        const ctx = getAudioCtx();
-        if (!ctx) return;
-
-        const now = ctx.currentTime;
-        // Tone 1: 480 Hz  |  Tone 2: 380 Hz  |  Tone 3: 300 Hz
-        [[480, 0.00], [380, 0.32], [300, 0.64]].forEach(([freq, offset]) => {
-            const osc  = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.type            = 'sine';
-            osc.frequency.value = freq;
-            gain.gain.setValueAtTime(0,    now + offset);
-            gain.gain.linearRampToValueAtTime(0.18, now + offset + 0.02);
-            gain.gain.setValueAtTime(0.18, now + offset + 0.22);
-            gain.gain.linearRampToValueAtTime(0,    now + offset + 0.28);
-            osc.start(now + offset);
-            osc.stop(now  + offset + 0.30);
-        });
+        if (endedAudioEl) {
+            endedAudioEl.currentTime = 0;
+            endedAudioEl.play().catch(() => {});
+        }
     }
 
     // ────────────────────────────────────────────────────────
